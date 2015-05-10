@@ -1,0 +1,176 @@
+// background
+$main-bg-color: #f7f7f7;
+$main-fg-color: #f1f2f4;
+
+// border
+$border-light-color: #ccc;
+$border-dark-color: #444;
+
+// shadow
+$box-shadow-color: #cecece;
+
+// colors
+$text-bg-color: #6f6f6f;
+$text-fg-color: #919191;
+$text-accent-color: #2196F3;
+
+div#timepicker {
+    width: 250px;
+    background: $main-bg-color;
+    position: absolute;
+    border: 1px solid $border-light-color;
+    font-family: sans-serif;
+    color: $text-bg-color;
+    box-shadow: 0 0 4px $box-shadow-color;
+}
+
+div#timepicker-time {
+    background: $main-fg-color;
+    width: 100%;
+    height: 40px;
+    font-size: 22pt;
+    text-align: center;
+    z-index: 10;
+    
+    span#timepicker-hour,span#timepicker-minute {
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        
+        &.active {
+            color: darken($text-accent-color,5%)
+        }
+        
+        &:hover {
+            color: $text-accent-color;
+        }
+    }
+    span#timepicker-hour {
+        
+    }
+    
+    span#timepicker-minute {
+        
+    }
+}
+
+#timepicker-canvas {
+    width: 200px;
+    height: 200px;
+    margin: 10px auto;
+    border: 1px solid $border-light-color;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+
+    #timepicker-faceH,#timepicker-faceM {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        cursor: pointer;
+        font-size: 11pt;
+        
+        span {
+            display: block;
+            position: absolute;
+            color: $text-bg-color;
+            text-align: center;
+            vertical-align: middle;
+            cursor: inherit;
+            
+            &.outerH {
+                font-size: 10pt;
+            }
+            
+            &:hover {
+                background: rgba($text-accent-color,.4);
+                border-radius: 50%;
+            }
+        }
+        
+    }
+    
+    #arrow {
+        width: 0;
+        height: 0;
+        padding: 30px 1px 0 1px;
+        margin: -30px -1px 0 -1px;
+        transform-origin: 50% 100% 0;
+        background: rgba($text-accent-color,.4);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        
+        &:after {
+            content: " ";
+            background: rgba($text-accent-color,.4);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top:-20px;
+            left:-9px;
+        }
+        
+        &:before {
+            content: " ";
+            background: rgba($text-accent-color,.4);
+            border-radius: 50%;
+            width: 4px;
+            height: 4px;
+            position: absolute;
+            bottom:-1px;
+            left:-1px; 
+        }
+    }
+}
+
+#timepicker-buttons {
+    width: 100%;
+    height: 40px;
+    background: $main-fg-color;
+    text-align: right;
+    
+    span#timepicker-cancel-button,span#timepicker-done-button {
+        padding:10px 0;
+        vertical-align: middle;
+        display: inline-block;
+        cursor: pointer;
+        text-align: center;
+        width: 55px;
+        
+        &:hover {
+            color: $text-accent-color;
+        }
+    }
+    
+    span#timepicker-cancel-button {
+        
+    }
+    
+    span#timepicker-done-button {
+       margin-right: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

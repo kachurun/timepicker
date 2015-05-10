@@ -1,0 +1,100 @@
+div#timepicker {
+  width: 250px;
+  background: #f7f7f7;
+  position: absolute;
+  border: 1px solid #ccc;
+  font-family: sans-serif;
+  color: #6f6f6f;
+  box-shadow: 0 0 4px #cecece; }
+
+div#timepicker-time {
+  background: #f1f2f4;
+  width: 100%;
+  height: 40px;
+  font-size: 22pt;
+  text-align: center;
+  z-index: 10; }
+  div#timepicker-time span#timepicker-hour, div#timepicker-time span#timepicker-minute {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer; }
+    div#timepicker-time span#timepicker-hour.active, div#timepicker-time span#timepicker-minute.active {
+      color: #0d8aee; }
+    div#timepicker-time span#timepicker-hour:hover, div#timepicker-time span#timepicker-minute:hover {
+      color: #2196F3; }
+
+#timepicker-canvas {
+  width: 200px;
+  height: 200px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2; }
+  #timepicker-canvas #timepicker-faceH, #timepicker-canvas #timepicker-faceM {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    cursor: pointer;
+    font-size: 11pt; }
+    #timepicker-canvas #timepicker-faceH span, #timepicker-canvas #timepicker-faceM span {
+      display: block;
+      position: absolute;
+      color: #6f6f6f;
+      text-align: center;
+      vertical-align: middle;
+      cursor: inherit; }
+      #timepicker-canvas #timepicker-faceH span.outerH, #timepicker-canvas #timepicker-faceM span.outerH {
+        font-size: 10pt; }
+      #timepicker-canvas #timepicker-faceH span:hover, #timepicker-canvas #timepicker-faceM span:hover {
+        background: rgba(33, 150, 243, 0.4);
+        border-radius: 50%; }
+  #timepicker-canvas #arrow {
+    width: 0;
+    height: 0;
+    padding: 30px 1px 0 1px;
+    margin: -30px -1px 0 -1px;
+    transform-origin: 50% 100% 0;
+    background: rgba(33, 150, 243, 0.4);
+    position: absolute;
+    top: 50%;
+    left: 50%; }
+    #timepicker-canvas #arrow:after {
+      content: " ";
+      background: rgba(33, 150, 243, 0.4);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: -20px;
+      left: -9px; }
+    #timepicker-canvas #arrow:before {
+      content: " ";
+      background: rgba(33, 150, 243, 0.4);
+      border-radius: 50%;
+      width: 4px;
+      height: 4px;
+      position: absolute;
+      bottom: -1px;
+      left: -1px; }
+
+#timepicker-buttons {
+  width: 100%;
+  height: 40px;
+  background: #f1f2f4;
+  text-align: right; }
+  #timepicker-buttons span#timepicker-cancel-button, #timepicker-buttons span#timepicker-done-button {
+    padding: 10px 0;
+    vertical-align: middle;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    width: 55px; }
+    #timepicker-buttons span#timepicker-cancel-button:hover, #timepicker-buttons span#timepicker-done-button:hover {
+      color: #2196F3; }
+  #timepicker-buttons span#timepicker-done-button {
+    margin-right: 10px; }
+
+/*# sourceMappingURL=timepicker.css.map */

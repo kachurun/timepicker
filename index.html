@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TimePicker Example!</title>  
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/timepicker.css">
+        
+        <script type="application/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="application/javascript" src="js/timepicker.js"></script>
+        
+        <script type="application/javascript">
+            $(function(){
+                $('#timepicker-container').timePicker({position:'right',float:'center'});            
+                
+            });
+
+        
+        </script>
+    </head>
+    <body>
+        <div id="timepicker-container">
+            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />
+                
+        </div>
+    </body>
+</html>
