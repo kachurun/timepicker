@@ -77,7 +77,7 @@
     
     TimePicker.default = {
         'default_time': '06:00',
-        'autohide':false,
+        'autohide':true,
         'always_show':false,
         'position': 'bottom',
         'float':'center',
@@ -257,12 +257,22 @@
         // create arrow and append to obj if not exist
         this.arrow = this.face_canvas.children().is('#arrow') ? this.face_canvas.find('#arrow') : $('<div id="arrow" style="opacity:0"></div>').appendTo(this.face_canvas);
         
-        // click on canvas event
-        this.face_canvas.on("click.canvas_"+this.id,$.proxy(this.canvasClick,this));
+        // click or move on canvas event
+        this.face_canvas.on("mousedown.canvas_"+this.id,function(e){
+            e.preventDefault();
+            this.moveArrow(e);
+            this.face_canvas.on("mousemove.canvas_"+this.id,$.proxy(this.moveArrow,this));
+        }.bind(this));
+        
+        this.face_canvas.on("mouseup.canvas_"+this.id, function(){
+                this.face_canvas.off("mousemove.canvas_"+this.id);
+                this.toggleView('auto');
+        }.bind(this));
     }
     
-    TimePicker.prototype.canvasClick = function(e){
-        var canvas = this.face_canvas,
+    TimePicker.prototype.moveArrow = function(e){
+        var 
+            canvas = this.face_canvas,
             width = canvas.width(),
             height = canvas.height(),
             x0,y0,x,y,
@@ -273,6 +283,7 @@
         x = e.pageX - x0;
         y = e.pageY - y0;
         r = Math.sqrt(x*x + y*y);
+        
         
         // Нажатия по большому, или малому радиусу?
         if ( r > innerR[0] && r < innerR[1] ) on = 'inner';
@@ -300,7 +311,6 @@
             }
             
             this.time_h.html(addZero(hour));
-            this.toggleView('minute');
             
         } else
         if (this.currentView == 'minute') {
@@ -310,7 +320,7 @@
                 minute = (minute == 60) ? 0 : minute;
                 this.drawArrow(outerR[0],'minute',minute);
                 this.time_m.html(addZero(minute));
-                if (this.settings.autohide) this.done();
+                
                 
             }            
             
@@ -350,6 +360,15 @@
             radius;
         
         if (newview == this.currentView) return;
+        
+        if (newview == 'auto') {
+            if (this.currentView == 'hour') this.toggleView('minute');
+            else if (this.currentView == 'minute') {
+                this.settings.autohide && this.done();
+            }
+                
+            
+        }
             
         if (newview == 'hour') {
             radius = (hourText > 12) ? outerR : innerR;
