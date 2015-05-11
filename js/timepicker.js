@@ -1,5 +1,6 @@
 (function( $ ){
 
+    // Template`s
     var template = [    '<div id="timepicker" style="opacity:0">',
                             '<div id="timepicker-time">',
                                 '<span id="timepicker-hour"></span>',
@@ -12,20 +13,29 @@
                             '</div>',
                         '</div>'].join('');
     
-    var 
-        delay = 400,
+    var btnsTpl = [    '<div id="timepicker-buttons">',
+                                    '<span id="timepicker-cancel-button"></span>',
+                                    '<span id="timepicker-done-button"></span>',
+                                '</div>'
+                            ].join('');
+    
+    // Global variations
+    var delay = 400,
         dividerIn = 3.5,
         dividerOut = 2.5,
         innerR,outerR;
-    
+    // Get random ID
     var randomId = function(n){
         return parseInt(n+Math.random()*n);
     }
     
+    // Add leading Zero
     var addZero = function(n) {
-        return (n < 10) ? '0'+n : n;
+        n = n.toString();
+        return (n.length < 2 && n < 10) ? '0'+n : n;
     }
     
+    // Obj Constructor
     var TimePicker = function(e,settings) {
         var obj = this,
             fragment = $(template),
@@ -55,32 +65,33 @@
         
 
         
-        // make buttons
+        // Buttons
         if (settings.enable_buttons) {
-            var btnsTpl = [    '<div id="timepicker-buttons">',
-                                    '<span id="timepicker-cancel-button"></span>',
-                                    '<span id="timepicker-done-button"></span>',
-                                '</div>'
-                            ].join('');
-            btns = $(btnsTpl);
-            if (!settings.always_show) btns.find('#timepicker-cancel-button')
-                                            .html(settings.cancel_text)
-                                            .on('click.cancel_'+this.id,$.proxy(this.toggle,this,'hide'));
+        
+            var btns = $(btnsTpl);
+            
             btns.find('#timepicker-done-button')
                 .html(settings.done_text)
                 .on('click.done_'+this.id,$.proxy(this.done,this));
+            
+            !settings.always_show && btns.find('#timepicker-cancel-button')
+                                            .html(settings.cancel_text)
+                                            .on('click.cancel_'+this.id,$.proxy(this.hide,this));
+            
             btns.appendTo(fragment);
+            
         }
    
-        // Show automatically when "always_show" is used, or event on input-click
+        // Show automatically when "always_show" is used, or event on click\focus to input
         if (settings.always_show) this.show();
         else input.on('click.timepicker_'+this.id+' focusin.timepicker_'+this.id,$.proxy(this.show,this));
-
     }
     
+    // Default settings
     TimePicker.default = {
         'time': '06:00',
         'autocomplete':false,
+        'autotogle':true,
         'enable_buttons':true,
         'always_show':false,
         'position': 'bottom',
@@ -91,13 +102,25 @@
         'cancel_text':'Cancel'
     }
     
+    // Show (create) Picker, events for hide by press ESC and space outside picker
     TimePicker.prototype.show = function() {
-        var 
-            time = this.input.val() ? this.input.val().split(':') : this.settings.time.split(':');
+        var date,time;
         
-        if (this.isOpen) {
-            return;
+        if (this.isOpen) return;
+ 
+        if (this.settings.time == 'now') {
+        
+            date = new Date();
+            time[0] = addZero(date.getHours());
+            time[1] = date.getMinutes();
+        
+        } else {
+            
+            time = this.input.val() ? this.input.val().split(':') : this.settings.time.split(':');
+            console.log(time[0]);
+            time[0] = addZero(time[0]);
         }
+            
         
         if (!this.isCreated) {
             (this.fragment).appendTo('body').addClass("timepicker_"+this.id);
@@ -119,7 +142,7 @@
         this.position();
         this.isOpen = true;
         
-        // close picker if clicked out of the picker
+        // close if clicked out of the picker
         if (!this.settings.always_show) {
             
             $(document).on('mousedown.document.timepicker_'+this.id,function(e){
@@ -141,6 +164,7 @@
         
     }
     
+    // Hide picker, destroy document.mousedown event
     TimePicker.prototype.hide = function(){
         
         this.fragment.animate({opacity:'0'},delay);
@@ -150,6 +174,7 @@
         
     }
     
+    // Position relative to the calling element
     TimePicker.prototype.position = function(){
         var
             input = this.input,
@@ -212,6 +237,7 @@
         this.fragment.css({'top':top, 'left':left});
     }
     
+    // Draw numbers on the dial, create arrow, click and drag event
     TimePicker.prototype.drawNum = function() {
         var width = this.face_canvas.width(),
             height = this.face_canvas.height(),
@@ -266,12 +292,13 @@
         $( document ).on("mouseup.canvas_"+this.id, function(){
             
             $( document ).off("mousemove.canvas_"+this.id);
-            this.isRotated && this.toggleView('auto');
+            this.isRotated && this.settings.autotogle && this.toggleView('auto');
             this.isRotated = false;
 
         }.bind(this));
     }
     
+    // rotates the arrow depending on the coordinates of the mouse.
     TimePicker.prototype.moveArrow = function(e){
         var 
             canvas = this.face_canvas,
@@ -331,6 +358,7 @@
         
     }
     
+    // redraws the arrow. Called moveArrow() each time
     TimePicker.prototype.drawArrow = function(size,type,num) {
         var 
             factor = 1,
@@ -347,15 +375,15 @@
 
     }
     
+    // done function. insert the resulting value into input and hide()
     TimePicker.prototype.done = function(){
         var time = this.time_h.html()+":"+this.time_m.html();
         this.input.val(time);
         
-        if (this.settings.always_show) return;
-                
-        this.hide();
+        !this.settings.always_show && this.hide();
     }
     
+    // toggle view (hour, minute)
     TimePicker.prototype.toggleView = function(newview){
         var hourText = parseInt( this.time_h.html() ),
             minuteText = parseInt( this.time_m.html() ),
@@ -423,6 +451,7 @@
      
     }
     
+    // initialize jQuery plugin
     $.fn.timePicker = function( options ) {  
         var args = Array.prototype.slice.call(arguments, 1);
         return this.each(function() {

@@ -14,12 +14,11 @@
                 $('#timepicker-container-2').timePicker();     
                 $('#timepicker-container-3').timePicker();     
                 $('#timepicker-container-4').timePicker();     
-                $('#timepicker-container-5').timePicker({position:'top',autocomplete:true});     
-                $('#timepicker-container-6').timePicker({always_show:true,autocomplete:true,position:'left',float:'center'});     
+                $('#timepicker-container-5').timePicker({position:'top',autocomplete:true,autotogle:false});     
+                $('#timepicker-container-6').timePicker({always_show:true,autocomplete:true,position:'left',float:'center',enable_buttons:false});     
                 $('#timepicker-container-7').timePicker();     
                 $('#timepicker-container-8').timePicker();     
-                $('#timepicker-container-9').timePicker();     
-                
+                $('#timepicker-container-9').timePicker();
             });
 
         
@@ -33,7 +32,7 @@
         </div>
         
 <!--         Default settings -->
-        <div id="timepicker-container-2" data-time="7:00">
+        <div id="timepicker-container-2" data-time="07:00">
             <input type="text" value="" id="timepicker-example2" placeholder="Select time" />         
         </div>
         
@@ -43,11 +42,11 @@
         </div>
         
 <!--        Always show, autocomplete, float center, align right-->
-        <div id="timepicker-container-4" data-always_show="true" data-autocomlete="true" data-position="right" data-float="center">
+        <div id="timepicker-container-4" data-always_show="true" data-autocomlete="true" data-position="right" data-float="center" data-done_text="Woow!">
             <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />      
         </div>
         
-<!--        Input Only-->
+<!--        Input Only, align top, autocomplete, disable auto switch views-->
         <input type="text" value="6:30" id="timepicker-container-5" placeholder="Select time" />          
         
 <!--        Always show, autocomplete js-->
