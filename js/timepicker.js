@@ -104,6 +104,7 @@
     
     // Show (create) Picker, events for hide by press ESC and space outside picker
     TimePicker.prototype.show = function() {
+
         var time = [],
             date;
         
@@ -119,6 +120,8 @@
             
             time = this.input.val() ? this.input.val().split(':') : this.settings.time.split(':');
             time[0] = addZero(time[0]);
+            time[1] = addZero(time[1]);
+        
         }
             
         
