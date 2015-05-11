@@ -11,7 +11,6 @@
                                 '<div id="timepicker-faceM"></div>',
                             '</div>',
                         '</div>'].join('');
-    var $picker;
     
     var dividerIn = 3.5,
         dividerOut = 2.5,
@@ -48,13 +47,12 @@
         this.isCreated = false;
         this.currentView = '';
         this.settings = settings;
-        this.e = e;
         this.input = input;            
         this.fragment = fragment;
         
 
         
-        //make buttons
+        // make buttons
         if (!settings.autohide) {
             var btnsTpl = [    '<div id="timepicker-buttons">',
                                     '<span id="timepicker-cancel-button"></span>',
@@ -71,13 +69,15 @@
             btns.appendTo(fragment);
         }
    
-        input.on('click.timepicker_'+this.id+' focusin.timepicker_'+this.id,$.proxy(this.toggle,this,'show'));
+        // Show automatically when "always_show" is used, or event on input-click
+        if (settings.always_show) this.show();
+        else input.on('click.timepicker_'+this.id+' focusin.timepicker_'+this.id,$.proxy(this.show,this));
 
     }
     
     TimePicker.default = {
         'default_time': '06:00',
-        'autohide':true,
+        'autohide':false,
         'always_show':false,
         'position': 'bottom',
         'float':'center',
@@ -96,7 +96,7 @@
         }
         
         if (!this.isCreated) {
-            $picker = (this.fragment).appendTo(this.e).addClass("timepicker_"+this.id);
+            (this.fragment).appendTo('body').addClass("timepicker_"+this.id);
             this.drawNum();
             this.isCreated = true;
             this.time_h.on("click.timeH_"+this.id, $.proxy(this.toggleView,this,'hour'));
@@ -117,7 +117,7 @@
                 // click on document, no input, picker
                 if (!this.input.is(e.target) && !this.fragment.is(e.target)
                       && this.fragment.has(e.target).length === 0){
-                    this.toggle('hide');
+                    this.hide();
                 }
             }.bind(this));
             
@@ -139,23 +139,8 @@
         
     }
     
-    TimePicker.prototype.toggle = function(arg) {
-
-        // if not initialized - create
-        if (!this.isCreated) {
-            this.show();
-            return;
-        }
-        
-        if (arg === 'show' && !this.isOpen) this.show();
-        if (arg === 'hide' && this.isOpen) this.hide();
-        if (!arg) this.isOpen ? this.hide() : this.show();
-        
-    }
-    
     TimePicker.prototype.position = function(){
         var
-            e = this.e,
             input = this.input,
             position = this.settings.position,
             float = this.settings.float,
@@ -168,7 +153,7 @@
             pw = this.fragment.outerWidth(),
             top,
             left;
-        
+
         switch (position) {
             case 'bottom':
                 top = iot + ih + margin;

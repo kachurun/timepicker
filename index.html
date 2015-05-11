@@ -10,7 +10,15 @@
         
         <script type="application/javascript">
             $(function(){
-                $('#timepicker-container').timePicker({position:'right',float:'center'});            
+                $('#timepicker-container-1').timePicker({position:"right",float:"bottom"});   
+                $('#timepicker-container-2').timePicker();     
+                $('#timepicker-container-3').timePicker();     
+                $('#timepicker-container-4').timePicker();     
+                $('#timepicker-container-5').timePicker();     
+                $('#timepicker-container-6').timePicker();     
+                $('#timepicker-container-7').timePicker();     
+                $('#timepicker-container-8').timePicker();     
+                $('#timepicker-container-9').timePicker();     
                 
             });
 
@@ -18,9 +26,45 @@
         </script>
     </head>
     <body>
-        <div id="timepicker-container">
-            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />
-                
+        
+<!--         Align right, float bottom in js time set to value, no data -->
+        <div id="timepicker-container-1">
+            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />               
         </div>
+        
+<!--         Default settings, always_show, autocomplete -->
+        <div id="timepicker-container-2" data-default_time="7:00" data-always_show="true" data-autocomlete="true">
+            <input type="text" value="" id="timepicker-example2" placeholder="Select time" />         
+        </div>
+        
+<!--         Align left, float bottom, data default-time -->
+        <div id="timepicker-container-3" data-default-time="08:00" data-position="left" data-float="bottom">
+            <input type="text" id="timepicker-example" placeholder="Select time" />         
+        </div>
+        
+        <div id="timepicker-container-4">
+            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />      
+        </div>
+        
+        <div id="timepicker-container-5">
+            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />          
+        </div>
+        
+        <div id="timepicker-container-6">
+            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />  
+        </div>
+        
+                <div id="timepicker-container-7">
+            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />      
+        </div>
+        
+        <div id="timepicker-container-8">
+            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />          
+        </div>
+        
+        <div id="timepicker-container-9">
+            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />  
+        </div>
+        
     </body>
 </html>

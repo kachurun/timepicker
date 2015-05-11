@@ -4,12 +4,70 @@
      padding: 0;
  }
 
-div#timepicker-container {
+div#timepicker-container-1 {
     text-align: center;
-    width: 100%;
+    position: absolute;
+    top: 50px;
+    left: 50px;
 }
 
-input#timepicker-example {
+div#timepicker-container-2 {
+    text-align: center;
+    position: absolute;
+    top: 50px;
+    left: 45%;
+}
+
+div#timepicker-container-3 {
+    text-align: center;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}
+
+div#timepicker-container-4 {
+    text-align: center;
+    position: absolute;
+    top: 350px;
+    left: 50px;
+}
+
+div#timepicker-container-5 {
+    text-align: center;
+    position: absolute;
+    top: 350px;
+    left: 45%;
+}
+
+div#timepicker-container-6 {
+    text-align: center;
+    position: absolute;
+    top: 350px;
+    right: 50px;
+}
+
+div#timepicker-container-7 {
+    text-align: center;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+}
+
+div#timepicker-container-8 {
+    text-align: center;
+    position: absolute;
+    bottom: 50px;
+    left: 45%;
+}
+
+div#timepicker-container-9 {
+    text-align: center;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+}
+
+input[type='text'] {
     background: transparent;
     width: 100px;
     height: 35px;
@@ -17,5 +75,4 @@ input#timepicker-example {
     font-size: 12pt;
     border: 1px solid #888;
     padding: 5px 20px;
-    margin-top: 200px;
 }
