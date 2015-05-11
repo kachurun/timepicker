@@ -112,7 +112,6 @@
         if (this.settings.time == 'now') {
         
             date = new Date();
-            
             time[0] = addZero(date.getHours());
             time[1] = addZero(date.getMinutes());
         
