@@ -107,11 +107,11 @@ div#timepicker-time {
             content: " ";
             background: rgba($text-accent-color,.4);
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             position: absolute;
-            top:-20px;
-            left:-9px;
+            top:-25px;
+            left:-11px;
         }
         
         &:before {

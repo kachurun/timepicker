@@ -12,7 +12,9 @@
                             '</div>',
                         '</div>'].join('');
     
-    var dividerIn = 3.5,
+    var 
+        delay = 400,
+        dividerIn = 3.5,
         dividerOut = 2.5,
         innerR,outerR;
     
@@ -45,6 +47,7 @@
         this.arrow;
         this.isOpen = false;
         this.isCreated = false;
+        this.isRotated;
         this.currentView = '';
         this.settings = settings;
         this.input = input;            
@@ -53,7 +56,7 @@
 
         
         // make buttons
-        if (!settings.autocomplete) {
+        if (settings.enable_buttons) {
             var btnsTpl = [    '<div id="timepicker-buttons">',
                                     '<span id="timepicker-cancel-button"></span>',
                                     '<span id="timepicker-done-button"></span>',
@@ -61,10 +64,10 @@
                             ].join('');
             btns = $(btnsTpl);
             if (!settings.always_show) btns.find('#timepicker-cancel-button')
-                                            .html(settings.cancelText)
+                                            .html(settings.cancel_text)
                                             .on('click.cancel_'+this.id,$.proxy(this.toggle,this,'hide'));
             btns.find('#timepicker-done-button')
-                .html(settings.doneText)
+                .html(settings.done_text)
                 .on('click.done_'+this.id,$.proxy(this.done,this));
             btns.appendTo(fragment);
         }
@@ -76,20 +79,21 @@
     }
     
     TimePicker.default = {
-        'default_time': '06:00',
+        'time': '06:00',
         'autocomplete':false,
+        'enable_buttons':true,
         'always_show':false,
         'position': 'bottom',
         'float':'center',
         'margin': 15,
         'theme':'light',
-        'doneText':'Done',
-        'cancelText':'Cancel'
+        'done_text':'Done',
+        'cancel_text':'Cancel'
     }
     
     TimePicker.prototype.show = function() {
         var 
-            time = this.input.val() ? this.input.val().split(':') : this.settings.default_time.split(':');
+            time = this.input.val() ? this.input.val().split(':') : this.settings.time.split(':');
         
         if (this.isOpen) {
             return;
@@ -109,33 +113,40 @@
         this.time_h.html(time[0]);
         this.time_m.html(time[1]);
         
-        //display automaticaly if always_show key setted
-        // enable close only if always_show not setted
+        // open hour view
+        this.toggleView('hour');
+        this.fragment.css({display:'block'}).animate({opacity:'1'},delay);
+        this.position();
+        this.isOpen = true;
+        
+        // close picker if clicked out of the picker
         if (!this.settings.always_show) {
             
-            $(document).on('click.document.timepicker_'+this.id,function(e){
-                // click on document, no input, picker
+            $(document).on('mousedown.document.timepicker_'+this.id,function(e){
+                // Click to any location on the screen, except picker and input
+                // only if arrow not rotated
                 if (!this.input.is(e.target) && !this.fragment.is(e.target)
-                      && this.fragment.has(e.target).length === 0){
+                      && this.fragment.has(e.target).length === 0 && !this.isRotated){
                     this.hide();
                 }
             }.bind(this));
             
+            // close picker if ESC key is pressed
+            $(document).on("keyup", function(e) {
+                if (e.keyCode == 27) this.hide();
+            }.bind(this));
+            
         }
-        
-        this.toggleView('hour');
-        this.fragment.css({display:'block'}).animate({opacity:'1'},500);
-        this.position();
-        this.isOpen = true;
+
         
     }
     
     TimePicker.prototype.hide = function(){
         
-        this.fragment.animate({opacity:'0'},500);
-        setTimeout(function(){this.fragment.css({display:'none'});}.bind(this),500)
+        this.fragment.animate({opacity:'0'},delay);
+        setTimeout(function(){this.fragment.css({display:'none'});}.bind(this),delay)
         this.isOpen = false;
-        $(document).off('click.document.timepicker_'+this.id);
+        $(document).off('mousedown.document.timepicker_'+this.id);
         
     }
     
@@ -204,8 +215,8 @@
     TimePicker.prototype.drawNum = function() {
         var width = this.face_canvas.width(),
             height = this.face_canvas.height(),
-            width_num = width/10,
-            height_num = height/10,
+            width_num = width/8,
+            height_num = height/8,
             leftPosition,topPosition,$num,divider;
         // draw
         for (var i = 0; i < 24; i++) {
@@ -244,14 +255,20 @@
         
         // click or move on canvas event
         this.face_canvas.on("mousedown.canvas_"+this.id,function(e){
+            
             e.preventDefault();
             this.moveArrow(e);
-            this.face_canvas.on("mousemove.canvas_"+this.id,$.proxy(this.moveArrow,this));
+            this.isRotated || $( document ).on("mousemove.canvas_"+this.id,$.proxy(this.moveArrow,this));
+            this.isRotated = true;
+            
         }.bind(this));
         
-        this.face_canvas.on("mouseup.canvas_"+this.id, function(){
-                this.face_canvas.off("mousemove.canvas_"+this.id);
-                this.toggleView('auto');
+        $( document ).on("mouseup.canvas_"+this.id, function(){
+            
+            $( document ).off("mousemove.canvas_"+this.id);
+            this.isRotated && this.toggleView('auto');
+            this.isRotated = false;
+
         }.bind(this));
     }
     
@@ -269,10 +286,9 @@
         y = e.pageY - y0;
         r = Math.sqrt(x*x + y*y);
         
-        
         // Нажатия по большому, или малому радиусу?
         if ( r > innerR[0] && r < innerR[1] ) on = 'inner';
-        else if ( r > outerR[0] && r < outerR[1] ) on = 'outer';
+        else if ( r > outerR[0] ) on = 'outer';
         else return;
         
         // Вычисляем угол, преобразуем к [0;2pi], разворачиваем на 90deg (0 сверху, 180 снизу)
@@ -311,6 +327,8 @@
             
         }
         
+        
+        
     }
     
     TimePicker.prototype.drawArrow = function(size,type,num) {
@@ -341,7 +359,6 @@
     TimePicker.prototype.toggleView = function(newview){
         var hourText = parseInt( this.time_h.html() ),
             minuteText = parseInt( this.time_m.html() ),
-            delay = 400,
             radius;
         
         if (newview == this.currentView) return;
@@ -403,8 +420,7 @@
             
             this.currentView = 'minute';
         }
-        
-        
+     
     }
     
     $.fn.timePicker = function( options ) {  
