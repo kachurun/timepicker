@@ -53,7 +53,7 @@
 
         
         // make buttons
-        if (!settings.autohide) {
+        if (!settings.autocomplete) {
             var btnsTpl = [    '<div id="timepicker-buttons">',
                                     '<span id="timepicker-cancel-button"></span>',
                                     '<span id="timepicker-done-button"></span>',
@@ -77,7 +77,7 @@
     
     TimePicker.default = {
         'default_time': '06:00',
-        'autohide':false,
+        'autocomplete':false,
         'always_show':false,
         'position': 'bottom',
         'float':'center',
@@ -349,7 +349,7 @@
         if (newview == 'auto') {
             if (this.currentView == 'hour') this.toggleView('minute');
             else if (this.currentView == 'minute') {
-                this.settings.autohide && this.done();
+                this.settings.autocomplete && this.done();
             }
                 
             
