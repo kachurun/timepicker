@@ -1,0 +1,89 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <title>TimePicker Example!</title>  
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/timepicker.css">
+
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css">
+        
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        
+        <script type="application/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+         
+        <script type="application/javascript" src="js/timepicker.js"></script>
+        
+        <script type="application/javascript">
+            
+            
+            $(function(){
+                hljs.initHighlightingOnLoad();
+                $('#tp-default').timePicker();
+                $('#tp-dark').timePicker();
+                $('#tp-autohide').timePicker({'position':'left','float':'bottom','enable_buttons':false,'autohide':true});
+                
+            });
+
+        </script>
+        
+    </head>
+    <body>
+        <div id='content' > 
+            <h1 class="centered"> Timepicker Example Page </h1>
+            <p class="centered text-14">
+                This is timepicker, simple lightweight jquery plugin for select the time in adroid-style dial pad.
+            </p>
+            <h2>Examples</h2>
+<!--            -->
+            <h3>Default picker, no options</h3>
+            <p>Default position: bottom, float: center, theme: light, 24-hour view, buttons enabled, autohide disabled, autoshow disabled</p>
+            <div id="tp-default" class="centered"> 
+                <input type="text" placeholder="Select time.." />
+            </div>    
+            <pre><code class="html">
+ &lt;script&gt; 
+    $('#tp-default').timePicker();
+&lt;/script&gt;
+            
+&lt;div id=&quot;tp-default&quot;&gt; 
+    &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; /&gt;
+&lt;/div&gt;  
+            </code></pre>
+<!--            -->
+            <h3>Options in data-*</h3>
+            <p>Position: right, float: top, theme: dark, 12-hour view</p>
+            <div id="tp-dark" data-theme="dark" data-position="right" data-float="top" data-twelve_hour="true" class="centered"> 
+                <input type="text" placeholder="Select time.." />
+            </div>    
+            <pre><code class="html">
+ &lt;script&gt; 
+    $('#tp-dark').timePicker();      
+&lt;/script&gt;
+            
+&lt;div id=&quot;tp-dark&quot; data-theme=&quot;dark&quot; data-position=&quot;right&quot; data-float=&quot;top&quot; data-twelve_hour=&quot;true&quot; &gt; 
+    &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; /&gt;
+&lt;/div&gt;    
+            </code></pre>
+            <!--            -->
+            <h3>Options in JS</h3>
+            <p>Default position: left, float: bottom, 24-hour view, buttons disabled, autohide enabled, default time 13:00</p>
+            <div id="tp-autohide" class="centered"> 
+                <input type="text" placeholder="Select time.." />
+            </div>    
+            <pre><code class="html">
+ &lt;script&gt; 
+    $('#tp-autohide').timePicker({'position':'left','float':'bottom','enable_buttons':false,'autohide':true});
+&lt;/script&gt;
+            
+&lt;div id=&quot;tp-autohide&quot; &gt; 
+    &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; /&gt;
+&lt;/div&gt; 
+            </code></pre>
+<!--            -->
+            
+            
+        </div>
+        
+        
+    </body>
+</html>

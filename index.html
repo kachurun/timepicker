@@ -16,7 +16,7 @@
                 $('#timepicker-container-4').timePicker();     
                 $('#timepicker-container-5').timePicker({position:'top',autocomplete:true,autotogle:false});     
                 $('#timepicker-container-6').timePicker({always_show:true,autocomplete:true,position:'left',float:'center',enable_buttons:false});     
-                $('#timepicker-container-7').timePicker();     
+                $('#timepicker-container-7').timePicker({time:'14:56'});     
                 $('#timepicker-container-8').timePicker();     
                 $('#timepicker-container-9').timePicker();
             });
@@ -32,7 +32,7 @@
         </div>
         
 <!--         Default settings -->
-        <div id="timepicker-container-2" data-time="07:00">
+        <div id="timepicker-container-2" data-time="07:00" data-theme="dark">
             <input type="text" value="" id="timepicker-example2" placeholder="Select time" />         
         </div>
         
@@ -47,7 +47,7 @@
         </div>
         
 <!--        Input Only, align top, autocomplete, disable auto switch views-->
-        <input type="text" value="6:30" id="timepicker-container-5" placeholder="Select time" />          
+        <input type="text" value="16:30" id="timepicker-container-5" data-twelve_hour='true' placeholder="Select time" />          
         
 <!--        Always show, autocomplete js-->
         <div id="timepicker-container-6">
@@ -55,15 +55,15 @@
         </div>
         
         <div id="timepicker-container-7">
-            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />      
+            <input type="text" value="" id="timepicker-example" placeholder="Select time" />      
         </div>
         
         <div id="timepicker-container-8">
-            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />          
+            <input type="text" value="05:00 PM" id="timepicker-example" placeholder="Select time" />          
         </div>
         
         <div id="timepicker-container-9">
-            <input type="text" value="6:30" id="timepicker-example" placeholder="Select time" />  
+            <input type="text" value="11:30 AM" id="timepicker-example" placeholder="Select time" />  
         </div>
         
     </body>
