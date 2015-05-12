@@ -11,13 +11,15 @@
                                 '<div id="timepicker-faceH"></div>',
                                 '<div id="timepicker-faceM"></div>',
                             '</div>',
-                        '</div>'].join('');
+                        '</div>'                                                    ].join('');
     
     var btnsTpl = [    '<div id="timepicker-buttons">',
                                     '<span id="timepicker-cancel-button"></span>',
                                     '<span id="timepicker-done-button"></span>',
-                                '</div>'
-                            ].join('');
+                                    '</div>'                                        ].join('');
+    var amPmTpl = [     '<div id="am_pm">',
+                        '<span id="ampm_button"></span>',
+                        '</div>'                                                    ].join('');
     
     // Global variations
     var delay = 400,
@@ -39,6 +41,7 @@
     var TimePicker = function(e,settings) {
         var obj = this,
             fragment = $(template),
+            ampm = $(amPmTpl),
             isInput = e.prop('tagName') === 'INPUT',
             time_h = fragment.find('span#timepicker-hour'),
             time_m = fragment.find('span#timepicker-minute'),
@@ -55,15 +58,15 @@
         this.face_h = face_h;
         this.face_m = face_m;
         this.arrow;
+        this.meridiem = 'AM';
         this.isOpen = false;
         this.isCreated = false;
         this.isRotated;
+        this.ampm = ampm;
         this.currentView = '';
         this.settings = settings;
         this.input = input;            
         this.fragment = fragment;
-        
-
         
         // Buttons
         if (settings.enable_buttons) {
@@ -81,7 +84,16 @@
             btns.appendTo(fragment);
             
         }
-   
+        
+        // Twelve Hour AM\PM buttons
+        if (settings.twelve_hour) {
+            
+            ampm.appendTo(fragment.find('#timepicker-time'));
+            ampm.find('#ampm_button').html(this.meridiem)
+                                        .on("click.ampm_"+this.id,function(){ console.log(obj); });
+            
+        }
+        
         // Show automatically when "always_show" is used, or event on click\focus to input
         if (settings.always_show) this.show();
         else input.on('click.timepicker_'+this.id+' focusin.timepicker_'+this.id,$.proxy(this.show,this));
@@ -94,6 +106,7 @@
         'autotogle':true,
         'enable_buttons':true,
         'always_show':false,
+        'twelve_hour':true,
         'position': 'bottom',
         'float':'center',
         'margin': 15,
@@ -104,7 +117,6 @@
     
     // Show (create) Picker, events for hide by press ESC and space outside picker
     TimePicker.prototype.show = function() {
-
         var time = [],
             date;
         
