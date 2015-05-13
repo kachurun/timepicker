@@ -134,7 +134,8 @@
     
     // Show (create) Picker, events for hide by press ESC and space outside picker
     TimePicker.prototype.show = function() {
-        var time = [],
+        var obj = this,
+            time = [],
             date;
         
         if (this.isOpen) return;
@@ -207,16 +208,16 @@
             $(document).on('mousedown.document.timepicker_'+this.id,function(e){
                 // Click to any location on the screen, except picker and input
                 // only if arrow not rotated
-                if (!this.input.is(e.target) && !this.fragment.is(e.target)
-                      && this.fragment.has(e.target).length === 0 && !this.isRotated){
-                    this.hide();
+                if (!obj.input.is(e.target) && !obj.fragment.is(e.target)
+                      && obj.fragment.has(e.target).length === 0 && !obj.isRotated){
+                    obj.hide();
                 }
-            }.bind(this));
+            });
             
             // close picker if ESC key is pressed
             $(document).on("keyup", function(e) {
-                if (e.keyCode == 27) this.hide();
-            }.bind(this));
+                if (e.keyCode == 27) obj.hide();
+            });
             
         }
 
@@ -225,9 +226,9 @@
     
     // Hide picker, destroy document.mousedown event
     TimePicker.prototype.hide = function(){
-        
+        var obj = this;
         this.fragment.animate({opacity:'0'},delay);
-        setTimeout(function(){this.fragment.css({display:'none'});}.bind(this),delay)
+        setTimeout(function(){obj.fragment.css({display:'none'});},delay);
         this.isOpen = false;
         $(document).off('mousedown.document.timepicker_'+this.id);
         
@@ -299,7 +300,8 @@
     // Draw numbers on the dial, create arrow, click and drag event
     TimePicker.prototype.drawNum = function() {
         
-        var width = this.face_canvas.width(),
+        var obj = this,
+            width = this.face_canvas.width(),
             height = this.face_canvas.height(),
             width_num = width/8,
             height_num = height/8,
@@ -370,19 +372,19 @@
         // click or move on canvas event
         this.face_canvas.on(mousedownEvent+".canvas_"+this.id,function(e){
            
-            this.moveArrow(e);
-            this.isRotated || $( document ).on(mousemoveEvent+".canvas_"+this.id,$.proxy(this.moveArrow,this));
-            this.isRotated = true;
+            obj.moveArrow(e);
+            obj.isRotated || $( document ).on(mousemoveEvent+".canvas_"+obj.id,$.proxy(obj.moveArrow,obj));
+            obj.isRotated = true;
             
-        }.bind(this));
+        });
         
         $( document ).on(mouseupEvent+".canvas_"+this.id, function(){
             
-            $( document ).off(mousemoveEvent+".canvas_"+this.id);
-            this.isRotated && this.settings.autotogle && this.toggleView('auto');
-            this.isRotated = false;
+            $( document ).off(mousemoveEvent+".canvas_"+obj.id);
+            obj.isRotated && obj.settings.autotogle && obj.toggleView('auto');
+            obj.isRotated = false;
 
-        }.bind(this));
+        });
     }
     
     // rotates the arrow depending on the coordinates of the mouse.
@@ -478,7 +480,8 @@
     
     // toggle view (hour, minute)
     TimePicker.prototype.toggleView = function(newview){
-        var hourText = parseInt( this.time_h.html() ),
+        var obj = this,
+            hourText = parseInt( this.time_h.html() ),
             minuteText = parseInt( this.time_m.html() ),
             radius;
         
@@ -489,7 +492,10 @@
         }
         
         if (newview == 'auto') {
-            if (this.currentView == 'hour') this.toggleView('minute');
+            
+            if (this.currentView == 'hour') {
+                this.toggleView('minute');
+            }
             else if (this.currentView == 'minute') {
                 this.settings.autohide && this.done();
             }
@@ -506,10 +512,10 @@
             }
             
             // ANIMATIONS
-            setTimeout(function() {this.face_m.css({'z-index':1});
-                                   this.drawArrow(radius, 'hour', hourText);
-                                   this.arrow.animate({opacity:1},delay);
-                                  }.bind(this),delay);
+            setTimeout(function() {obj.face_m.css({'z-index':1});
+                                   obj.drawArrow(radius, 'hour', hourText);
+                                   obj.arrow.animate({opacity:1},delay);
+                                  },delay);
             // Minutes View fade out and zoom out
             this.face_m.animate({transform:'scale(5)',
                                  opacity:0},delay);
@@ -531,10 +537,10 @@
         if (newview == 'minute') {
             
             // ANIMATIONS
-            setTimeout(function(){this.face_h.css({'z-index':1});
-                                  this.drawArrow(outerR, 'minute', minuteText);
-                                  this.arrow.animate({opacity:1},delay);
-                                 }.bind(this),delay);
+            setTimeout(function(){obj.face_h.css({'z-index':1});
+                                  obj.drawArrow(outerR, 'minute', minuteText);
+                                  obj.arrow.animate({opacity:1},delay);
+                                 },delay);
             
             // Hour View fade out and zoom out
             this.face_h.animate({transform:'scale(5)',opacity:0},delay);
