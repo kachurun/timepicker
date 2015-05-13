@@ -160,6 +160,11 @@
             
             // if meridean set, add to obj
             if (time[2] == 'AM' || time[2] == 'PM') this.meridiem = time[2];
+            //CHECK
+            // hour > 24
+            if (time[0]>24) time[0] -=24;
+            // minute > 60
+            if (time[1]>60) time[1] -=60;
             // 24-hour, if field in 12h. 02:00 PM = 14:00 
             if (!this.settings.twelve_hour && this.meridiem == 'PM' && time[0] < 13) {
                 time[0] = parseInt(time[0]) + 12;
@@ -315,7 +320,7 @@
                                                 'width':width_num+'px',
                                                 'line-height':height_num+'px'
                                                 });
-                this.face_h.append($num).css({'display':'none'});
+                this.face_h.append($num);
 
             }
             
@@ -335,7 +340,7 @@
                                                 'line-height':height_num+'px'
                                                 });
                 if (i == 0 || i > 12) $num.addClass('outerH');
-                this.face_h.append($num).css({'display':'none'});
+                this.face_h.append($num);
 
             }
             
@@ -351,7 +356,7 @@
                                             'width':width_num+'px',
                                             'line-height':height_num+'px'
                                             });
-            this.face_m.append($num).css({display:'none'});
+            this.face_m.append($num);
             
         }
         
@@ -479,13 +484,17 @@
         
         if (newview == this.currentView) return;
         
+        if (newview == 'toggle') {
+            this.currentView == 'hour' ? this.toggleView('minute') : this.toggleView('hour');
+        }
+        
         if (newview == 'auto') {
             if (this.currentView == 'hour') this.toggleView('minute');
             else if (this.currentView == 'minute') {
                 this.settings.autohide && this.done();
             }
                 
-            
+            return;
         }
             
         if (newview == 'hour') {
@@ -497,7 +506,7 @@
             }
             
             // ANIMATIONS
-            setTimeout(function() {this.face_m.css({display:'none'});
+            setTimeout(function() {this.face_m.css({'z-index':1});
                                    this.drawArrow(radius, 'hour', hourText);
                                    this.arrow.animate({opacity:1},delay);
                                   }.bind(this),delay);
@@ -508,7 +517,7 @@
             
             
             // Hour View fade in and zoom in
-            this.face_h.css({display:'block'})
+            this.face_h.css({'z-index':10})
                             .animate({transform:'scale(1)',
                                       opacity:1},delay);
             
@@ -522,7 +531,7 @@
         if (newview == 'minute') {
             
             // ANIMATIONS
-            setTimeout(function(){this.face_h.css({display:'none'});
+            setTimeout(function(){this.face_h.css({'z-index':1});
                                   this.drawArrow(outerR, 'minute', minuteText);
                                   this.arrow.animate({opacity:1},delay);
                                  }.bind(this),delay);
@@ -532,7 +541,7 @@
             this.arrow.animate({opacity:0},delay);
             
             // Minute View fade in and zoom in
-            this.face_m.css({display:'block'})
+            this.face_m.css({'z-index':10})
                             .animate({transform:'scale(1)',
                                       opacity:1},delay);
             
@@ -553,10 +562,10 @@
             
 			if (! data) {
 				var settings = $.extend({}, TimePicker.default, $this.data(), typeof options == 'object' && options);
-				$this.data('clockpicker', new TimePicker($this, settings));
+				$this.data('timepicker', new TimePicker($this, settings));
 			} else {
-				if (typeof data[option] === 'function') {
-					data[option].apply(data, args);
+				if (typeof data[options] === 'function') {
+					data[options].apply(data, args);
 				}
             }
         }); 
