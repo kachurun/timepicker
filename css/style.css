@@ -23,10 +23,12 @@
         border: 1px solid #e2e2e2;
       }
       
+
 } 
 
 @media screen 
   and (min-device-width: 640px) {
+
     div#container {
         box-shadow: 0 0 15px #ccc;
         width: 60%;
