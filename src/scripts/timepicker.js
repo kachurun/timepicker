@@ -65,7 +65,7 @@ See Demo at kachurun.github.io/timepicker
         vibrateTimeout = setTimeout(function(){
     
             if (vibrate) navigator.vibrate(n);
-            console.log('vabra');
+            
         },t);
     
     };
@@ -395,17 +395,17 @@ See Demo at kachurun.github.io/timepicker
         this.arrow = this.face_canvas.children().is('#arrow') ? this.face_canvas.find('#arrow') : $('<div id="arrow" style="opacity:0"></div>').appendTo(this.face_canvas);
         
         // click or move on canvas event
-        this.face_canvas.on(mousedownEvent+"_"+this.id,function(e){
+        this.face_canvas.on(mousedownEvent+".canvas_"+this.id,function(e){
            
             obj.moveArrow(e);
-            if (!obj.isRotated) $( document ).on(mousemoveEvent+"_"+obj.id,$.proxy(obj.moveArrow,obj));
+            if (!obj.isRotated) $( document ).on(mousemoveEvent+".document_"+obj.id,$.proxy(obj.moveArrow,obj));
             obj.isRotated = true;
             
         });
         
-        $( document ).on(mouseupEvent+"_"+this.id, function(){
+        $( document ).on(mouseupEvent+".document_"+this.id, function(){
             
-            $( document ).off(mousemoveEvent+"_"+obj.id);
+            $( document ).off(mousemoveEvent+".document_"+obj.id);
             if (obj.isRotated && obj.settings.autotogle) obj.toggleView('auto');
             obj.isRotated = false;
 
