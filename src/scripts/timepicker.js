@@ -1,9 +1,10 @@
 /*
 TimePicker, v0.0.5
-Created by Maksim Kachurin
+Created by Maksim Kachurin, 2015
 github.com/kachurun/timepicker
 See Demo at kachurun.github.io/timepicker
 */
+/* jshint expr: true */
 (function( $ ){
 
     // Template`s
@@ -36,13 +37,13 @@ See Demo at kachurun.github.io/timepicker
     // Get random ID
     var randomId = function(n){
         return parseInt(n+Math.random()*n);
-    }
+    };
     
     // Add leading Zero
     var addZero = function(n) {
         n = n.toString();
         return (n.length < 2 && n < 10) ? '0'+n : n;
-    }
+    };
     
     // Touch screen support for dragging
     var touchSupported = 'ontouchstart' in window,
@@ -63,11 +64,11 @@ See Demo at kachurun.github.io/timepicker
         clearTimeout(vibrateTimeout);
         vibrateTimeout = setTimeout(function(){
     
-            vibrate && navigator.vibrate(n);
+            if (vibrate) navigator.vibrate(n);
             console.log('vabra');
         },t);
     
-    }
+    };
     
     // Obj Constructor
     var TimePicker = function(e,settings) {
@@ -89,11 +90,11 @@ See Demo at kachurun.github.io/timepicker
         this.face_canvas = face_canvas;
         this.face_h = face_h;
         this.face_m = face_m;
-        this.arrow;
+        this.arrow = null;
         this.meridiem = 'AM';
         this.isOpen = false;
         this.isCreated = false;
-        this.isRotated;
+        this.isRotated = false;
         this.ampm = ampm;
         this.currentView = '';
         this.settings = settings;
@@ -139,7 +140,7 @@ See Demo at kachurun.github.io/timepicker
         // Show automatically when "always_show" is used, or event on click\focus to input
         if (settings.always_show) this.show();
         else input.on('click.timepicker_'+this.id+' focusin.timepicker_'+this.id,$.proxy(this.show,this));
-    }
+    };
     
     // Default settings
     TimePicker.default = {
@@ -155,7 +156,7 @@ See Demo at kachurun.github.io/timepicker
         'theme':'light',
         'done_text':'Done',
         'cancel_text':'Cancel'
-    }
+    };
     
     // Show (create) Picker, events for hide by press ESC and space outside picker
     TimePicker.prototype.show = function() {
@@ -175,7 +176,7 @@ See Demo at kachurun.github.io/timepicker
             if (this.settings.twelve_hour) {
                 
                 this.meridiem = (time[0] > 11 ) ? 'PM' : 'AM';
-                time[0] = (time[0] > 12 || time[0] == 0) ? Math.abs(time[0]-12) : time[0];
+                time[0] = (time[0] > 12 || time[0] === 0) ? Math.abs(time[0]-12) : time[0];
                
             }
         
@@ -233,8 +234,7 @@ See Demo at kachurun.github.io/timepicker
             $(document).on('mousedown.document.timepicker_'+this.id,function(e){
                 // Click to any location on the screen, except picker and input
                 // only if arrow not rotated
-                if (!obj.input.is(e.target) && !obj.fragment.is(e.target)
-                      && obj.fragment.has(e.target).length === 0 && !obj.isRotated){
+                if (!obj.input.is(e.target) && !obj.fragment.is(e.target) && obj.fragment.has(e.target).length === 0 && !obj.isRotated){
                     obj.hide();
                 }
             });
@@ -247,7 +247,7 @@ See Demo at kachurun.github.io/timepicker
         }
 
         
-    }
+    };
     
     // Hide picker, destroy document.mousedown event
     TimePicker.prototype.hide = function(){
@@ -257,7 +257,7 @@ See Demo at kachurun.github.io/timepicker
         this.isOpen = false;
         $(document).off('mousedown.document.timepicker_'+this.id);
         
-    }
+    };
     
     // Position relative to the calling element
     TimePicker.prototype.position = function(){
@@ -292,7 +292,7 @@ See Demo at kachurun.github.io/timepicker
             default:
                 top = iot + ih + margin;
                 break;
-        };
+        }
         
         switch (float) {
             case 'bottom':
@@ -317,10 +317,10 @@ See Demo at kachurun.github.io/timepicker
             default:
                 left = iol + (iw - pw)/2;
                 break;
-        };
+        }
         
         this.fragment.css({'top':top, 'left':left});
-    }
+    };
     
     // Draw numbers on the dial, create arrow, click and drag event
     TimePicker.prototype.drawNum = function() {
@@ -330,12 +330,12 @@ See Demo at kachurun.github.io/timepicker
             height = this.face_canvas.height(),
             width_num = width/8,
             height_num = height/8,
-            leftPosition,topPosition,$num,divider;
+            leftPosition,topPosition,$num,divider,i;
         
         // draw dial hour 12
         if (this.settings.twelve_hour) {
             
-            for (var i = 1; i < 13; i++) {
+            for (i = 1; i < 13; i++) {
 
                 divider = dividerOut;
 
@@ -354,9 +354,9 @@ See Demo at kachurun.github.io/timepicker
         // draw dial hour 24
         } else {
             
-            for (var i = 0; i < 24; i++) {
+            for (i = 0; i < 24; i++) {
 
-                divider = (i == 0 || i > 12) ? dividerOut : dividerIn;
+                divider = (i === 0 || i > 12) ? dividerOut : dividerIn;
 
                 topPosition = -Math.cos(i * Math.PI / 6) * height/divider + height/2 - (height_num/2);
                 leftPosition = Math.sin(i * Math.PI / 6) * width/divider + width/2 - (width_num/2);
@@ -366,14 +366,14 @@ See Demo at kachurun.github.io/timepicker
                                                 'width':width_num+'px',
                                                 'line-height':height_num+'px'
                                                 });
-                if (i == 0 || i > 12) $num.addClass('outerH');
+                if (i === 0 || i > 12) $num.addClass('outerH');
                 this.face_h.append($num);
 
             }
             
         }
         // draw dial minutes
-        for (var i = 0;i < 60; i+=5) {
+        for (i = 0;i < 60; i+=5) {
             
             divider = dividerOut;
             topPosition = -Math.cos(i * Math.PI / 30) * height/divider + height/2 - (height_num/2);
@@ -395,22 +395,22 @@ See Demo at kachurun.github.io/timepicker
         this.arrow = this.face_canvas.children().is('#arrow') ? this.face_canvas.find('#arrow') : $('<div id="arrow" style="opacity:0"></div>').appendTo(this.face_canvas);
         
         // click or move on canvas event
-        this.face_canvas.on(mousedownEvent+".canvas_"+this.id,function(e){
+        this.face_canvas.on(mousedownEvent+"_"+this.id,function(e){
            
             obj.moveArrow(e);
-            obj.isRotated || $( document ).on(mousemoveEvent+".canvas_"+obj.id,$.proxy(obj.moveArrow,obj));
+            if (!obj.isRotated) $( document ).on(mousemoveEvent+"_"+obj.id,$.proxy(obj.moveArrow,obj));
             obj.isRotated = true;
             
         });
         
-        $( document ).on(mouseupEvent+".canvas_"+this.id, function(){
+        $( document ).on(mouseupEvent+"_"+this.id, function(){
             
-            $( document ).off(mousemoveEvent+".canvas_"+obj.id);
-            obj.isRotated && obj.settings.autotogle && obj.toggleView('auto');
+            $( document ).off(mousemoveEvent+"_"+obj.id);
+            if (obj.isRotated && obj.settings.autotogle) obj.toggleView('auto');
             obj.isRotated = false;
 
         });
-    }
+    };
     
     // rotates the arrow depending on the coordinates of the mouse.
     TimePicker.prototype.moveArrow = function(e){
@@ -443,7 +443,7 @@ See Demo at kachurun.github.io/timepicker
             if (on == 'inner') {
                 
                 hour = Math.round(angle/30);
-                hour = (hour == 0) ? 12 : hour;
+                hour = (hour === 0) ? 12 : hour;
                 this.drawArrow(innerR[0],'hour',hour);
                 
             } else {
@@ -462,7 +462,7 @@ See Demo at kachurun.github.io/timepicker
         else if (this.currentView == 'hour' && this.settings.twelve_hour) {
                              
             hour = Math.round(angle/30);
-            hour = (hour == 0 ) ?  12 : hour;
+            hour = (hour === 0 ) ?  12 : hour;
             this.drawArrow(outerR[0],'hour12',hour);
             this.time_h.html(addZero(hour));
             
@@ -479,7 +479,7 @@ See Demo at kachurun.github.io/timepicker
         
         startVibrate(50,150);
 
-    }
+    };
     
     // Redraws the arrow. Called by moveArrow() each time. Vibrate the device
     TimePicker.prototype.drawArrow = function(size,type,num) {
@@ -496,15 +496,15 @@ See Demo at kachurun.github.io/timepicker
         
         this.arrow.css({'margin-top':'-'+size+'px','padding-top':size+'px',transform:'rotate('+angle+'deg)'});
         
-    }
+    };
     
     // done function. insert the resulting value into input and hide()
     TimePicker.prototype.done = function(){
         var time = this.time_h.html()+":"+this.time_m.html();
         this.settings.twelve_hour ? this.input.val(time+' '+this.meridiem) : this.input.val(time);
         
-        !this.settings.always_show && this.hide();
-    }
+        if (!this.settings.always_show) this.hide();
+    };
     
     // toggle view (hour, minute)
     TimePicker.prototype.toggleView = function(newview,isVibrate){
@@ -515,7 +515,7 @@ See Demo at kachurun.github.io/timepicker
         
         if (newview == this.currentView) return;
         
-        isVibrate && startVibrate(50,50)
+        if (isVibrate) startVibrate(50,50);
         
         if (newview == 'toggle') {
             this.currentView == 'hour' ? this.toggleView('minute') : this.toggleView('hour');
@@ -527,7 +527,7 @@ See Demo at kachurun.github.io/timepicker
                 this.toggleView('minute');
             }
             else if (this.currentView == 'minute') {
-                this.settings.autohide && this.done();
+                if (this.settings.autohide) this.done();
             }
                 
             return;
@@ -587,7 +587,7 @@ See Demo at kachurun.github.io/timepicker
             this.currentView = 'minute';
         }
      
-    }
+    };
     
     // initialize jQuery plugin
     $.fn.timePicker = function( options ) {  
