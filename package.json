@@ -1,0 +1,27 @@
+{
+  "name": "timepicker",
+  "version": "0.0.5",
+  "description": "TimePicker, small jQuery plugin for choose the time",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kachurun/timepicker.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-concurrent": "~1.0.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-sass": "~1.0.0",
+    "grunt-contrib-uglify": "~0.9.1",
+    "jit-grunt": "~0.9.1",
+    "grunt-contrib-jshint": "~0.11.2",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-postcss": "~0.4.0",
+    "autoprefixer-core": "~5.1.11",
+    "csswring": "~3.0.5"
+  },
+  "dependencies": {
+    "time-grunt": "~1.2.0",
+    "jshint-stylish": "~1.0.2",
+    "jshint": "~2.7.0"
+  }
+}
