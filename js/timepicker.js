@@ -43,7 +43,11 @@
 		mousedownEvent = 'mousedown'+( touchSupported ? ' touchstart' : ''),
 		mousemoveEvent = 'mousemove'+( touchSupported ? ' touchmove' : ''),
 		mouseupEvent = 'mouseup' + ( touchSupported ? ' touchend' : '');
-
+    
+    // Vibrate support
+    var vibrate = 'vibrate' in navigator,
+        vibrateTimeout;
+    
     // Obj Constructor
     var TimePicker = function(e,settings) {
         var obj = this,
@@ -453,7 +457,7 @@
 
     }
     
-    // redraws the arrow. Called by moveArrow() each time
+    // Redraws the arrow. Called by moveArrow() each time. Vibrate the device
     TimePicker.prototype.drawArrow = function(size,type,num) {
         var 
             factor = 1,
@@ -467,7 +471,12 @@
         size = parseInt(size);
         
         this.arrow.css({'margin-top':'-'+size+'px','padding-top':size+'px',transform:'rotate('+angle+'deg)'});
-
+        
+        clearTimeout(vibrateTimeout);
+        vibrateTimeout = setTimeout(function(){
+            vibrate && navigator.vibrate(100);
+        },200);
+        
     }
     
     // done function. insert the resulting value into input and hide()
