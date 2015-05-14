@@ -1,3 +1,9 @@
+/*
+TimePicker, v0.0.5
+Created by Maksim Kachurin
+github.com/kachurun/timepicker
+See Demo at kachurun.github.io/timepicker
+*/
 (function( $ ){
 
     // Template`s
