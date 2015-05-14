@@ -48,6 +48,21 @@
     var vibrate = 'vibrate' in navigator,
         vibrateTimeout;
     
+    // startVibrate(lenght, timeout)
+    var startVibrate = function(n,t) {
+        
+        n = n || 50;
+        t = t || 150;
+        
+        clearTimeout(vibrateTimeout);
+        vibrateTimeout = setTimeout(function(){
+    
+            vibrate && navigator.vibrate(n);
+            console.log('vabra');
+        },t);
+    
+    }
+    
     // Obj Constructor
     var TimePicker = function(e,settings) {
         var obj = this,
@@ -189,8 +204,8 @@
             (this.fragment).appendTo('body').addClass("timepicker_"+this.id);
             this.drawNum();
             this.isCreated = true;
-            this.time_h.on("click.timeH_"+this.id, $.proxy(this.toggleView,this,'hour'));
-            this.time_m.on("click.timeM_"+this.id, $.proxy(this.toggleView,this,'minute'));
+            this.time_h.on("click.timeH_"+this.id, $.proxy(this.toggleView,this,'hour',true));
+            this.time_m.on("click.timeM_"+this.id, $.proxy(this.toggleView,this,'minute',true));
             $( window ).on('resize.timepicker_'+this.id, $.proxy(this.position,this));
         }
                             
@@ -434,6 +449,7 @@
             }
             
             this.time_h.html(addZero(hour));
+            
                
         }
         
@@ -443,7 +459,7 @@
             hour = (hour == 0 ) ?  12 : hour;
             this.drawArrow(outerR[0],'hour12',hour);
             this.time_h.html(addZero(hour));
-
+            
         }
         
         else if (this.currentView == 'minute') {
@@ -454,6 +470,8 @@
             this.time_m.html(addZero(minute));
          
         }
+        
+        startVibrate(50,150);
 
     }
     
@@ -472,11 +490,6 @@
         
         this.arrow.css({'margin-top':'-'+size+'px','padding-top':size+'px',transform:'rotate('+angle+'deg)'});
         
-        clearTimeout(vibrateTimeout);
-        vibrateTimeout = setTimeout(function(){
-            vibrate && navigator.vibrate(100);
-        },200);
-        
     }
     
     // done function. insert the resulting value into input and hide()
@@ -488,13 +501,15 @@
     }
     
     // toggle view (hour, minute)
-    TimePicker.prototype.toggleView = function(newview){
+    TimePicker.prototype.toggleView = function(newview,isVibrate){
         var obj = this,
             hourText = parseInt( this.time_h.html() ),
             minuteText = parseInt( this.time_m.html() ),
             radius;
         
         if (newview == this.currentView) return;
+        
+        isVibrate && startVibrate(50,50)
         
         if (newview == 'toggle') {
             this.currentView == 'hour' ? this.toggleView('minute') : this.toggleView('hour');
