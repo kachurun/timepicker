@@ -1,3 +1,9 @@
+/*
+TimePicker, v0.0.5
+Created by Maksim Kachurin
+github.com/kachurun/timepicker
+See Demo at kachurun.github.io/timepicker
+*/
 (function( $ ){
 
     // Template`s
@@ -43,7 +49,26 @@
 		mousedownEvent = 'mousedown'+( touchSupported ? ' touchstart' : ''),
 		mousemoveEvent = 'mousemove'+( touchSupported ? ' touchmove' : ''),
 		mouseupEvent = 'mouseup' + ( touchSupported ? ' touchend' : '');
-
+    
+    // Vibrate support
+    var vibrate = 'vibrate' in navigator,
+        vibrateTimeout;
+    
+    // startVibrate(lenght, timeout)
+    var startVibrate = function(n,t) {
+        
+        n = n || 50;
+        t = t || 150;
+        
+        clearTimeout(vibrateTimeout);
+        vibrateTimeout = setTimeout(function(){
+    
+            vibrate && navigator.vibrate(n);
+            console.log('vabra');
+        },t);
+    
+    }
+    
     // Obj Constructor
     var TimePicker = function(e,settings) {
         var obj = this,
@@ -185,8 +210,8 @@
             (this.fragment).appendTo('body').addClass("timepicker_"+this.id);
             this.drawNum();
             this.isCreated = true;
-            this.time_h.on("click.timeH_"+this.id, $.proxy(this.toggleView,this,'hour'));
-            this.time_m.on("click.timeM_"+this.id, $.proxy(this.toggleView,this,'minute'));
+            this.time_h.on("click.timeH_"+this.id, $.proxy(this.toggleView,this,'hour',true));
+            this.time_m.on("click.timeM_"+this.id, $.proxy(this.toggleView,this,'minute',true));
             $( window ).on('resize.timepicker_'+this.id, $.proxy(this.position,this));
         }
                             
@@ -430,6 +455,7 @@
             }
             
             this.time_h.html(addZero(hour));
+            
                
         }
         
@@ -439,7 +465,7 @@
             hour = (hour == 0 ) ?  12 : hour;
             this.drawArrow(outerR[0],'hour12',hour);
             this.time_h.html(addZero(hour));
-
+            
         }
         
         else if (this.currentView == 'minute') {
@@ -450,10 +476,12 @@
             this.time_m.html(addZero(minute));
          
         }
+        
+        startVibrate(50,150);
 
     }
     
-    // redraws the arrow. Called by moveArrow() each time
+    // Redraws the arrow. Called by moveArrow() each time. Vibrate the device
     TimePicker.prototype.drawArrow = function(size,type,num) {
         var 
             factor = 1,
@@ -467,7 +495,7 @@
         size = parseInt(size);
         
         this.arrow.css({'margin-top':'-'+size+'px','padding-top':size+'px',transform:'rotate('+angle+'deg)'});
-
+        
     }
     
     // done function. insert the resulting value into input and hide()
@@ -479,13 +507,15 @@
     }
     
     // toggle view (hour, minute)
-    TimePicker.prototype.toggleView = function(newview){
+    TimePicker.prototype.toggleView = function(newview,isVibrate){
         var obj = this,
             hourText = parseInt( this.time_h.html() ),
             minuteText = parseInt( this.time_m.html() ),
             radius;
         
         if (newview == this.currentView) return;
+        
+        isVibrate && startVibrate(50,50)
         
         if (newview == 'toggle') {
             this.currentView == 'hour' ? this.toggleView('minute') : this.toggleView('hour');

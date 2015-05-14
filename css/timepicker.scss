@@ -2,7 +2,7 @@
 // LIGHT THEME
 // background
 $lt-main-bg-color: #fafafa;
-$lt-main-fg-color: #fcfcfc;
+$lt-main-fg-color: #fafafa; //#fcfcfc;
 
 // border
 $lt-border-light-color: #ccc;
@@ -19,10 +19,10 @@ $lt-text-accent-color: #2196F3;
 // DARK THEME
 // background
 $drk-main-bg-color: #323232;
-$drk-main-fg-color: #2D2D2D;
+$drk-main-fg-color: #323232; //#2D2D2D;
 
 // border
-$drk-border-light-color: #252525;
+$drk-border-light-color: #292929;
 $drk-border-dark-color: #1D1D1D;
 
 // shadow
@@ -31,24 +31,25 @@ $drk-box-shadow-color: #cecece;
 // colors
 $drk-text-bg-color: #CBCBCB;
 $drk-text-fg-color: #999;
-$drk-text-accent-color: #E91E63;
+$drk-text-accent-color: #F50057;
 
 div#timepicker {
 
-    width: 250px;
+    width: 220px;
     background: $lt-main-bg-color;
     position: absolute;
     border: 1px solid $lt-border-light-color;
-    font-family: sans-serif;
+    font: normal 200 10pt sans-serif,Arial,Verdana;
     color: $lt-text-bg-color;
     box-shadow: 0 0 4px $lt-box-shadow-color;
 
     div#timepicker-time {
         background: $lt-main-fg-color;
         width: 100%;
-        font-size: 22pt;
+        font-size: 2.2em;
         text-align: center;
         position: relative;
+        padding: 5px 0;
 
         span#timepicker-hour,span#timepicker-minute {
             display: inline-block;
@@ -66,7 +67,7 @@ div#timepicker {
 
         div#am_pm {
 
-            font-size: 8pt;
+            font-size: 0.3em;
             padding-left: 5px;
             display: inline;
 
@@ -74,6 +75,7 @@ div#timepicker {
 
                 width: 0;
                 display: inline-block;
+                vertical-align: middle;
 
                 &:hover {
                     cursor: pointer;
@@ -101,7 +103,7 @@ div#timepicker {
             top: 0;
             z-index: 1;
             cursor: pointer;
-            font-size: 11pt;
+            font-size: 1em;
 
             span {
                 display: block;
@@ -112,7 +114,7 @@ div#timepicker {
                 cursor: inherit;
 
                 &.outerH {
-                    font-size: 10pt;
+                    font-size: 0.8em;
                 }
 
                 &:hover {
@@ -159,9 +161,8 @@ div#timepicker {
     }
 
     #timepicker-buttons {
-        width: 100%;
-        height: 40px;
         background: $lt-main-fg-color;
+        width: 100%;
         text-align: right;
 
         span#timepicker-cancel-button,span#timepicker-done-button {
