@@ -64,7 +64,6 @@ div#content code {
 div#footer {
     padding: 20px 40px;
     background: #f7f7f7;
-    margin-bottom: 40px;
     overflow: auto;
 }
 
@@ -106,13 +105,14 @@ table#options th, table#options td {
 
 input[type='text'], input[type='button'] {
     background: #f8f8f8;
-    width: 80px;
-    height: 25px;
-    color: #666;
-    font-size: 9pt;
+    width: 140px;
+    height: 40px;
+    color: #212121;
+    font-size: 2em;
+    text-align: center;
     border: 1px solid #e2e2e2;
-    padding: 2px 4px;
-    margin: 2px 3px;
+    padding: 4px 6px;
+    text-overflow: ellipsis;
 }
 
 .centered {
