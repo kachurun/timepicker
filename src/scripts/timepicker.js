@@ -100,6 +100,7 @@ See Demo at kachurun.github.io/timepicker
         this.settings = settings;
         this.input = input;            
         this.fragment = fragment;
+        this.e = e;
         
         // Buttons
         if (settings.enable_buttons) {
@@ -587,6 +588,20 @@ See Demo at kachurun.github.io/timepicker
             this.currentView = 'minute';
         }
      
+    };
+    
+    // remove picker
+    TimePicker.prototype.destroy = function() {
+        if (this.isOpen) this.hide();
+        
+        this.input.off('click.timepicker_'+this.id+' focusin.timepicker_'+this.id);
+        $( window ).off('resize.timepicker_'+this.id);
+
+        this.fragment.remove();
+
+        if (this.isCreated) this.fragment.remove();
+        this.e.removeData();
+        
     };
     
     // initialize jQuery plugin
