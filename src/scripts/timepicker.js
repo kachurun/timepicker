@@ -141,6 +141,7 @@ See Demo at kachurun.github.io/timepicker
         // Show automatically when "always_show" is used, or event on click\focus to input
         if (settings.always_show) this.show();
         else input.on('click.timepicker_'+this.id+' focusin.timepicker_'+this.id,$.proxy(this.show,this));
+        
     };
     
     // Default settings
@@ -161,6 +162,7 @@ See Demo at kachurun.github.io/timepicker
     
     // Show (create) Picker, events for hide by press ESC and space outside picker
     TimePicker.prototype.show = function() {
+        this.callback(this.settings.beforeShow);
         var obj = this,
             time = [],
             date;
@@ -240,14 +242,14 @@ See Demo at kachurun.github.io/timepicker
                 }
             });
             
-            // close picker if ESC key is pressed
+            // close picker if ESC key is pressed and done if Return is pressed
             $(document).on("keyup", function(e) {
                 if (e.keyCode == 27) obj.hide();
+                if (e.keyCode == 13) obj.done();
             });
             
         }
-
-        
+    this.callback(this.settings.afterShow);    
     };
     
     // Hide picker, destroy document.mousedown event
@@ -257,7 +259,7 @@ See Demo at kachurun.github.io/timepicker
         setTimeout(function(){obj.fragment.css({display:'none'});},delay);
         this.isOpen = false;
         $(document).off('mousedown.document.timepicker_'+this.id);
-        
+        this.callback(this.settings.afterHide);
     };
     
     // Position relative to the calling element
@@ -505,10 +507,12 @@ See Demo at kachurun.github.io/timepicker
         this.settings.twelve_hour ? this.input.val(time+' '+this.meridiem) : this.input.val(time);
         
         if (!this.settings.always_show) this.hide();
+        this.callback(this.settings.afterDone);
     };
     
     // toggle view (hour, minute)
     TimePicker.prototype.toggleView = function(newview,isVibrate){
+        this.callback(this.settings.beforeToggleView);
         var obj = this,
             hourText = parseInt( this.time_h.html() ),
             minuteText = parseInt( this.time_m.html() ),
@@ -587,11 +591,12 @@ See Demo at kachurun.github.io/timepicker
             
             this.currentView = 'minute';
         }
-     
+     this.callback(this.settings.afterToggleView);
     };
     
     // remove picker
     TimePicker.prototype.destroy = function() {
+        this.callback(this.settings.beforeDestroy);
         if (this.isOpen) this.hide();
         
         this.input.off('click.timepicker_'+this.id+' focusin.timepicker_'+this.id);
@@ -601,7 +606,14 @@ See Demo at kachurun.github.io/timepicker
 
         if (this.isCreated) this.fragment.remove();
         this.e.removeData();
-        
+        this.callback(this.settings.afterDestroy);
+    };
+    
+    // Callbacks
+    TimePicker.prototype.callback = function(cb) {
+        if (cb && typeof(cb) === 'function') {
+            cb();
+        }
     };
     
     // initialize jQuery plugin
