@@ -1,7 +1,59 @@
 # TimePicker
 
-Simple jquery plugin to select time in android style dial pad
+##Simple jquery plugin to select time in android style dial pad
 
 Requires jquery only, work in all major browsers and IE >9
 
 http://kachurun.github.io/timepicker/
+
+## Usage
+
+*   Link timepicker.js and timepicker.css to your project
+*   Use the .timePicker(); method to connect timepiker to element. Caution! The element must be Input type=text or contain a child input
+*   Set picker options using the properties of .timePicker method or date-* HTML5 attributes
+
+For more details, see examples and options.
+
+
+## Options
+
+| Option | Default | Available | Description |
+| --- | --- | --- | --- |
+| time | 06:00 | Default time |
+| autohide | false | true
+false | Hide and paste data into input after choosing the minutes |
+| autotoggle | true | true
+false | Auto toggle view to minutes when hour is select |
+| enable_buttons | true | true
+false | Enable or Disable buttons |
+| always_show | false | true
+false | Show timepicker automaticaly and disable hide |
+| twelve_hour | false | true
+false | Use 12-hour time format |
+| position | bottom | top
+bottom
+left
+right | Default timepicker position |
+| float | center | center
+top
+bottom
+left
+right | Specify the edge of the element which bind picker |
+| margin | 15 | Timepicker margin |
+| theme | light | light
+dark | Color theme of timepicker |
+| done_text | 'Done' | Set Done button text |
+| done_cancel | 'Cancel' | Set Cancel button text |
+
+## Callbacks
+
+| Callback | Description |
+| --- | --- |
+| beforeShow | Before Show |
+| afterShow | After Show |
+| afterHide | After Hide |
+| afterDone | After Done |
+| beforeToggleView | Before choose hour or minutes |
+| afterToggleView | After choose hour or minutes |
+| beforeDestroy | Before remove timepicker |
+| afterDestroy | After remove timepicker |
