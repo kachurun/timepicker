@@ -141,7 +141,41 @@ and (min-device-width: 768px)" rel="stylesheet" href="css/desktop.css">
                           </tr>
                         </tbody>
                     </table>
-            <h2>Callbacks</h2>
+                
+                <h2>Manual actions</h2>
+                <p>Note! If picker not created, function call will create picker. Not use remove() function twice to avoid problems</p>
+                    <table id='options'>
+                        <thead>
+                          <tr>
+                            <th>Function</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>show()</td>
+                            <td>Show TimePicker</td>
+                          </tr>
+                          <tr>
+                            <td>hide()</td>
+                            <td>Hide TimePicker</td>
+                          </tr>
+                          <tr>
+                            <td>destroy()</td>
+                            <td>Destroy TimePicker. Removes all objects, data and layout</td>
+                          </tr>
+                          <tr>
+                            <td>toggleView(view)</td>
+                            <td>Available view: ('toggle','auto','hour','minute'). 'toggle' change between hour and minutes, 'auto' call done after minute select. </td>
+                          </tr>
+                          <tr>
+                            <td>position()</td>
+                            <td>Auto adjust timepicker position</td>
+                          </tr>
+                          
+                        </tbody>
+                    </table>
+                <h2>Callbacks</h2>
                     <table id='options'>
                         <thead>
                           <tr>
