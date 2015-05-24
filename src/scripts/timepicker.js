@@ -18,7 +18,8 @@ See Demo at kachurun.github.io/timepicker
                                 '<div id="timepicker-faceH"></div>',
                                 '<div id="timepicker-faceM"></div>',
                             '</div>',
-                        '</div>'                                                    ].join('');
+                        '</div>'
+                   ].join('');
     
     var btnsTpl = [    '<div id="timepicker-buttons">',
                                     '<span id="timepicker-cancel-button"></span>',
@@ -149,6 +150,7 @@ See Demo at kachurun.github.io/timepicker
         'time': '06:00',
         'autohide':false,
         'autotogle':true,
+        'enable_head':true,
         'enable_buttons':true,
         'always_show':false,
         'twelve_hour':false,
@@ -170,7 +172,7 @@ See Demo at kachurun.github.io/timepicker
         if (this.isOpen) return;
  
         // Prepare data from input / settings
-        if (this.settings.time == 'now' && !this.input.val()) {
+        if (this.settings.time == 'now') {
         
             date = new Date();
             time[0] = addZero(date.getHours());
@@ -186,6 +188,9 @@ See Demo at kachurun.github.io/timepicker
         } else {
             
             time = this.input.val() || this.settings.time;
+            // time from input valid? if not, use default. 12:56, 3:4, 17:55 AM is valid
+            if (!/^[0-9]{1,2}:[0-9]{1,2}(?: [A,P]M)?$/.test(time)) time = this.settings.time;
+            
             time = time.split(/[\:\ \-]/);
             
             // if meridean set, add to obj
