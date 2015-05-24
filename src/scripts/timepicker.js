@@ -1,5 +1,5 @@
 /*
-TimePicker, v0.0.5
+TimePicker, v0.1.0
 Created by Maksim Kachurin, 2015
 github.com/kachurun/timepicker
 See Demo at kachurun.github.io/timepicker
