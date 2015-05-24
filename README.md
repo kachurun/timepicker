@@ -3,8 +3,9 @@
 ##Simple jquery plugin to select time in android style dial pad
 
 Requires jquery only, work in all major browsers and IE >9
-(http://kachurun.github.io/timepicker/)[See Examples and Demo](/d)
 
+See Examples and Demo:
+http://kachurun.github.io/timepicker/
 
 ![timepicker-light](https://kachurun.github.io/timepicker/assets/light.png) ![timepicker-dark](https://kachurun.github.io/timepicker/assets/dark.png)
 
@@ -21,31 +22,18 @@ For more details, see examples and options.
 
 | Option | Default | Available | Description |
 | --- | --- | --- | --- |
-| time | 06:00 | Default time |
-| autohide | false | true
-false | Hide and paste data into input after choosing the minutes |
-| autotoggle | true | true
-false | Auto toggle view to minutes when hour is select |
-| enable_buttons | true | true
-false | Enable or Disable buttons |
-| always_show | false | true
-false | Show timepicker automaticaly and disable hide |
-| twelve_hour | false | true
-false | Use 12-hour time format |
-| position | bottom | top
-bottom
-left
-right | Default timepicker position |
-| float | center | center
-top
-bottom
-left
-right | Specify the edge of the element which bind picker |
-| margin | 15 | Timepicker margin |
-| theme | light | light
-dark | Color theme of timepicker |
-| done_text | 'Done' | Set Done button text |
-| done_cancel | 'Cancel' | Set Cancel button text |
+| time | 06:00 | Default time | |
+| autohide | false | true, false | Hide and paste data into input after choosing the minutes |
+| autotoggle | true | true, false | Auto toggle view to minutes when hour is select |
+| enable_buttons | true | true, false | Enable or Disable buttons |
+| always_show | false | true, false | Show timepicker automaticaly and disable hide |
+| twelve_hour | false | true, false | Use 12-hour time format |
+| position | bottom | top, bottom,left,right | Default timepicker position |
+| float | center | center,top,bottom,left,right | Specify the edge of the element which bind picker |
+| margin | 15 | | Timepicker margin |
+| theme | light | light, dark | Color theme of timepicker |
+| done_text | 'Done' | | Set Done button text |
+| done_cancel | 'Cancel' | | Set Cancel button text |
 
 ## Manual actions
 
