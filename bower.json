@@ -1,23 +1,31 @@
 {
   "name": "timepicker",
   "version": "0.1.0",
-  "description": "TimePicker, small jQuery plugin for choose the time in Android-style dial-pad",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kachurun/timepicker.git"
+  "homepage": "https://github.com/kachurun/timepicker",
+  "authors": [
+    "Maksim Kachurin <kachurun@gmail.com>"
+  ],
+  "description": "Timepicker is small jQuery plugin for choose the time with android-style dial pad",
+  "main": [
+   "src/scripts/timepicker.js",
+   "src/styles/timepicker.scss",
+   "css/timepicker.css",
+   "js/timepicker.min.js"
+  ],
+  "keywords": [
+    "timepicker",
+    "clock",
+    "time"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
   }
-    
-    {
-    "name": "TimePicker",
-    "version": "0.1.0",
-    "ignore": [
-        "grunt", 
-        ".gitignore", 
-        "node_modules",  
-        "Gruntfile.json",
-        "package.json"
-    ],
-    "dependencies": {
-        "jquery": ">=2.1.0"
-    }
 }
