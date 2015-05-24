@@ -3,8 +3,10 @@
 ##Simple jquery plugin to select time in android style dial pad
 
 Requires jquery only, work in all major browsers and IE >9
+(http://kachurun.github.io/timepicker/)[See Examples and Demo](/d)
 
-http://kachurun.github.io/timepicker/
+
+![timepicker-light](https://kachurun.github.io/timepicker/assets/light.png) ![timepicker-dark](https://kachurun.github.io/timepicker/assets/dark.png)
 
 ## Usage
 
@@ -44,6 +46,18 @@ right | Specify the edge of the element which bind picker |
 dark | Color theme of timepicker |
 | done_text | 'Done' | Set Done button text |
 | done_cancel | 'Cancel' | Set Cancel button text |
+
+## Manual actions
+
+Note! If picker not created, function call will create picker. Not use remove() function twice to avoid problems
+
+| Function | Description |
+| --- | --- |
+| show() | Show TimePicker |
+| hide() | Hide TimePicker |
+| destroy() | Destroy TimePicker. Removes all objects, data and layout |
+| toggleView(view) | Available view: ('toggle','auto','hour','minute'). 'toggle' change between hour and minutes, 'auto' call done after minute select. |
+| position() | Auto adjust timepicker position |
 
 ## Callbacks
 
