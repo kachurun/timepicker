@@ -1,6 +1,6 @@
 {
-  "name": "timepicker",
-  "version": "0.1.0",
+  "name": "timepicker.dial",
+  "version": "0.1.1",
   "description": "TimePicker, small jQuery plugin for choose the time",
   "repository": {
     "type": "git",
