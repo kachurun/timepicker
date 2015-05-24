@@ -10,6 +10,7 @@ Requires jquery only, work perfectly in all major browsers and IE >9. Also it wo
 
 ## Usage
 
+*   Download from GitHub or install with bower (`bower install timepicker.dial`)
 *   Link timepicker.js and timepicker.css to your project
 *   Use the .timePicker(); method to connect timepiker to element. Caution! The element must be Input type=text or contain a child input
 *   Set picker options using the properties of .timePicker method or data-* HTML5 attributes
