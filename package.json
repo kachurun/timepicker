@@ -1,6 +1,6 @@
 {
   "name": "timepicker",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "TimePicker, small jQuery plugin for choose the time",
   "repository": {
     "type": "git",
