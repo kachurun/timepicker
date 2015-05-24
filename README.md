@@ -2,10 +2,9 @@
 
 ##Simple jquery plugin to select time in android style dial pad
 
-Requires jquery only, work in all major browsers and IE >9
+Requires jquery only, work perfectly in all major browsers and IE >9. Also it work with mobile devices.
 
-See Examples and Demo:
-http://kachurun.github.io/timepicker/
+[See Examples and Demo](http://kachurun.github.io/timepicker/)
 
 ![timepicker-light](https://kachurun.github.io/timepicker/assets/light.png) ![timepicker-dark](https://kachurun.github.io/timepicker/assets/dark.png)
 
@@ -13,7 +12,17 @@ http://kachurun.github.io/timepicker/
 
 *   Link timepicker.js and timepicker.css to your project
 *   Use the .timePicker(); method to connect timepiker to element. Caution! The element must be Input type=text or contain a child input
-*   Set picker options using the properties of .timePicker method or date-* HTML5 attributes
+*   Set picker options using the properties of .timePicker method or data-* HTML5 attributes
+
+```javascript
+        $('#example').timePicker({'time':'07:30','position':'left','float':'bottom','autohide':true});
+```
+
+```html
+<div id="example" data-time="now" data-theme="dark"> 
+    <input type="text"/>
+</div>    
+```
 
 For more details, see examples and options.
 

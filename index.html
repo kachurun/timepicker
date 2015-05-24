@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TimePicker Example!</title>  
+        <link media="only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 768px)" rel="stylesheet" href="css/mobile.css">
+        <link media="only screen 
+and (min-device-width: 768px)" rel="stylesheet" href="css/desktop.css">
+        <link rel="stylesheet" href="css/timepicker.css">
+
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css">
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+         
+        <script type="application/javascript" src="js/timepicker.min.js"></script>
+        
+        <script type="application/javascript">
+            
+            
+            $(function(){
+                hljs.initHighlightingOnLoad();
+                $('#tp-default').timePicker();
+                $('#tp-dark').timePicker();
+                $('#tp-autohide').timePicker({'time':'13:35','position':'left','float':'bottom','enable_buttons':false,'autohide':true});
+                $('#tp-input-12').timePicker({'position':'top','float':'right','twelve_hour':true,'done_text':':)','cancel_text':':('});
+                $('#tp-broken').timePicker({'position':'right','float':'center'});
+                var manual = $('#tp-manual').timePicker({'position':'left','float':'bottom'});
+                $('#tp-button').on('click',function(e){
+                    manual.timePicker('toggleView', 'toggle');    
+                });
+            });
+
+        </script>
+        
+    </head>
+    <body>
+        <div id="container">
+
+            <div id="header">
+                <h1>TimePicker</h1>
+                <h2>Simple lightweight jquery plugin for select the time in adroid-style dial pad.</h2>
+            </div>
+
+            <div id="content">
+                <h2>Get it!</h2>
+                    <a href="https://github.com/kachurun/timepicker/archive/master.zip">Download link</a>
+                <h2>Usage</h2>
+                    <ul>
+                        <li>Link timepicker.js and timepicker.css to your project</li>
+                        <li>Use the .timePicker(); method to connect timepiker to element. Caution! The element must be Input type=text or contain a child input </li>
+                        <li>Set picker options using the properties of .timePicker method or date-* HTML5 attributes</li>
+                    </ul>
+                    <p>For more details, see examples and options.</p>
+                
+                <h2>Options</h2>
+                    <table id='options'>
+                        <thead>
+                          <tr>
+                            <th>Option</th>
+                            <th>Default</th>
+                            <th>Available</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>time</td>
+                            <td>06:00</td>
+                            <td></td>
+                            <td>Default time</td>
+                          </tr>
+                          <tr>
+                            <td>autohide</td>
+                            <td>false</td>
+                            <td>true<br />false</td>
+                            <td>Hide and paste data into input after choosing the minutes</td>
+                          </tr>
+                          <tr>
+                            <td>autotogle</td>
+                            <td>true</td>
+                            <td>true<br />false</td>
+                            <td>Auto toggle view to minutes when hour is select</td>
+                          </tr>
+                          <tr>
+                            <td>enable_buttons</td>
+                            <td>true</td>
+                            <td>true<br />false</td>
+                            <td>Enable or Disable buttons</td>
+                          </tr>
+                          <tr>
+                            <td>always_show</td>
+                            <td>false</td>
+                            <td>true<br />false</td>
+                            <td>Show timepicker automaticaly and disable hide</td>
+                          </tr>
+                          <tr>
+                            <td>twelve_hour</td>
+                            <td>false</td>
+                            <td>true<br />false</td>
+                            <td>Use 12-hour time format</td>
+                          </tr>
+                          <tr>
+                            <td>position</td>
+                            <td>bottom</td>
+                            <td>top<br />bottom<br />left<br />right</td>
+                            <td>Default timepicker position</td>
+                          </tr>
+                          <tr>
+                            <td>float</td>
+                            <td>center</td>
+                            <td>center<br />top<br />bottom<br />left<br />right</td>
+                            <td>Specify the edge of the element which bind picker</td>
+                          </tr>
+                          <tr>
+                            <td>margin</td>
+                            <td>15</td>
+                            <td></td>
+                            <td>Timepicker margin</td>
+                          </tr>
+                          <tr>
+                            <td>theme</td>
+                            <td>light</td>
+                            <td>light<br />dark</td>
+                            <td>Color theme of timepicker</td>
+                          </tr>
+                          <tr>
+                            <td>done_text</td>
+                            <td>'Done'</td>
+                            <td></td>
+                            <td>Set Done button text</td>
+                          </tr>
+                          <tr>
+                            <td>done_cancel</td>
+                            <td>'Cancel'</td>
+                            <td></td>
+                            <td>Set Cancel button text</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                
+                <h2>Manual actions</h2>
+                <p>Note! If picker not created, function call will create picker. Not use remove() function twice to avoid problems</p>
+                    <table id='options'>
+                        <thead>
+                          <tr>
+                            <th>Function</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>show()</td>
+                            <td>Show TimePicker</td>
+                          </tr>
+                          <tr>
+                            <td>hide()</td>
+                            <td>Hide TimePicker</td>
+                          </tr>
+                          <tr>
+                            <td>destroy()</td>
+                            <td>Destroy TimePicker. Removes all objects, data and layout</td>
+                          </tr>
+                          <tr>
+                            <td>toggleView(view)</td>
+                            <td>Available view: ('toggle','auto','hour','minute'). 'toggle' change between hour and minutes, 'auto' call done after minute select. </td>
+                          </tr>
+                          <tr>
+                            <td>position()</td>
+                            <td>Auto adjust timepicker position</td>
+                          </tr>
+                          
+                        </tbody>
+                    </table>
+                <h2>Callbacks</h2>
+                    <table id='options'>
+                        <thead>
+                          <tr>
+                            <th>Callback</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>beforeShow</td>
+                            <td>Before Show</td>
+                          </tr>
+                          <tr>
+                            <td>afterShow</td>
+                            <td>After Show</td>
+                          </tr>
+                          <tr>
+                            <td>afterHide</td>
+                            <td>After Hide</td>
+                          </tr>
+                          <tr>
+                            <td>afterDone</td>
+                            <td>After Done</td>
+                          </tr>
+                          <tr>
+                            <td>beforeToggleView</td>
+                            <td>Before choose hour or minutes</td>
+                          </tr>
+                          <tr>
+                            <td>afterToggleView</td>
+                            <td>After choose hour or minutes</td>
+                          </tr>
+                          <tr>
+                            <td>beforeDestroy</td>
+                            <td>Before remove timepicker</td>
+                          </tr>
+                          <tr>
+                            <td>afterDestroy</td>
+                            <td>After remove timepicker</td>
+                          </tr>
+                        </tbody>
+                    </table>
+            <h2>Examples</h2>
+    <!--            -->
+                <h3>Default picker, no options</h3>
+                <p>Default: position: bottom, float: center, theme: light, 24-hour view, buttons enabled, autohide disabled, autoshow disabled</p>
+                <div id="tp-default" class="centered"> 
+                    <input type="text" placeholder="Select time.." />
+                </div>    
+                <pre><code class="html">
+     &lt;script&gt; 
+        $('#tp-default').timePicker();
+    &lt;/script&gt;
+
+    &lt;div id=&quot;tp-default&quot;&gt; 
+        &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; /&gt;
+    &lt;/div&gt;  
+                </code></pre>
+    <!--            -->
+            <h3>Options in data-*, 12-Hour format, Now in default time, Dark theme</h3>
+                <p>Position: right, float: top, theme: dark, 12-hour view</p>
+                <div id="tp-dark" data-time="now" data-theme="dark" data-position="right" data-float="top" data-twelve_hour="true" class="centered"> 
+                    <input type="text" placeholder="Now.." />
+                </div>    
+                <pre><code class="html">
+     &lt;script&gt; 
+        $('#tp-dark').timePicker();      
+    &lt;/script&gt;
+
+    &lt;div id=&quot;tp-dark&quot; data-time=&quot;now&quot; data-theme=&quot;dark&quot; data-position=&quot;right&quot; data-float=&quot;top&quot; data-twelve_hour=&quot;true&quot; &gt; 
+        &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; /&gt;
+    &lt;/div&gt;    
+                </code></pre>
+                <!--            -->
+                <h3>Options in JS, no buttons</h3>
+                <p>Position: left, float: bottom, 24-hour view, buttons disabled, autohide enabled, default time 13:35</p>
+                <div id="tp-autohide" class="centered"> 
+                    <input type="text" placeholder="Select time.." />
+                </div>    
+                <pre><code class="html">
+     &lt;script&gt; 
+        $('#tp-autohide').timePicker({'position':'left','float':'bottom','enable_buttons':false,'autohide':true});
+    &lt;/script&gt;
+
+    &lt;div id=&quot;tp-autohide&quot; &gt; 
+        &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; /&gt;
+    &lt;/div&gt; 
+                </code></pre>
+                <!--            -->
+                <h3>Value in input, custom buttons text</h3>
+                <p>Position: top, float: right, 12-hour view</p>
+                <div id="tp-input-12" class="centered"> 
+                    <input type="text" placeholder="Select time.." value="06:40 PM" />
+                </div>    
+                <pre><code class="html">
+     &lt;script&gt; 
+        $('#tp-input-12').timePicker({'position':'top','float':'right','twelve_hour':true,'done_text':':)','cancel_text':':('});
+    &lt;/script&gt;
+
+    &lt;div id=&quot;tp-input-12&quot; &gt; 
+        &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; value=&quot;09:40 PM&quot; /&gt;
+    &lt;/div&gt; 
+                </code></pre>
+                <!--            -->
+                <h3>Broken value in 12H PM format, but picker in 24H format</h3>
+                <p>Position: right, float: center, 12-hour view</p>
+                <div id="tp-broken" class="centered"> 
+                    <input type="text" placeholder="Select time.." value="09:40 PM" />
+                </div>    
+                <pre><code class="html">
+     &lt;script&gt; 
+        $('#tp-broken').timePicker({'position':'right','float':'center'});
+    &lt;/script&gt;
+
+    &lt;div id=&quot;tp-broken&quot; &gt; 
+        &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; value=&quot;6:15 PM&quot; /&gt;
+    &lt;/div&gt; 
+                </code></pre>
+    <!--            -->
+                <h3>Call functions manualy.</h3>
+                <p>Position: left, float: bottom, 12-hour view</p>
+                <div id="tp-manual" class="centered"> 
+                    <input type="text" placeholder="Select time.." /> <input type="button" id="tp-button" value="toggle!" />
+                </div>    
+                <pre><code class="html">
+     &lt;script&gt; 
+        var manual = $('#tp-manual').timePicker({'position':'left','float':'bottom'});
+            $('#tp-button').on('click',function(e){
+                    manual.timePicker('toggleView', 'toggle');    
+            });
+    &lt;/script&gt;
+
+    &lt;div id=&quot;tp-manual&quot; &gt; 
+        &lt;input type=&quot;text&quot; placeholder=&quot;Select time..&quot; /&gt; &lt;input type=&quot;button&quot; id=&quot;tp-button&quot; value=&quot;toggle!&quot; /&gt;
+    &lt;/div&gt; 
+                </code></pre>
+            </div>
+
+            <div id="footer">
+                <span id="copy">&copy; Written by Maksim Kachurin.  <a href="https://github.com/kachurun/timepicker">Fork me on Github!</a></span>
+                <span id="license">License: <a href="http://opensource.org/licenses/MIT">MIT</a></span>
+            </div>
+        </div>
+    </body>
+</html>
