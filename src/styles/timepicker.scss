@@ -32,7 +32,7 @@ $drk-text-bg-color: #CBCBCB;
 $drk-text-fg-color: #999;
 $drk-text-accent-color: #F50057;
 
-div#timepicker {
+div.timepicker {
 
     width: 220px;
     background: $lt-main-bg-color;
@@ -42,7 +42,7 @@ div#timepicker {
     color: $lt-text-bg-color;
     box-shadow: 0 0 4px $lt-box-shadow-color;
 
-    div#timepicker-time {
+    .time {
         background: $lt-main-fg-color;
         width: 100%;
         font-size: 2.2em;
@@ -50,7 +50,7 @@ div#timepicker {
         position: relative;
         padding: 5px 0;
 
-        span#timepicker-hour,span#timepicker-minute {
+        .hour,.minute {
             display: inline-block;
             vertical-align: middle;
             cursor: pointer;
@@ -64,13 +64,13 @@ div#timepicker {
             }
         }
 
-        div#am_pm {
+        div.am_pm {
 
             font-size: 0.3em;
             padding-left: 5px;
             display: inline;
 
-            span#ampm_button {
+            span.ampm_button {
 
                 width: 0;
                 display: inline-block;
@@ -84,7 +84,7 @@ div#timepicker {
         }
     }
 
-    #timepicker-canvas {
+    .canvas {
         width: 200px;
         height: 200px;
         margin: 10px auto;
@@ -95,7 +95,7 @@ div#timepicker {
         position: relative;
         z-index: 2;
 
-        #timepicker-faceH,#timepicker-faceM {
+        .faceH,.faceM {
             width: 100%;
             height: 100%;
             position: absolute;
@@ -124,7 +124,7 @@ div#timepicker {
 
         }
 
-        #arrow {
+        .arrow {
             width: 0;
             height: 0;
             padding: 30px 1px 0 1px;
@@ -159,12 +159,12 @@ div#timepicker {
         }
     }
 
-    #timepicker-buttons {
+    .buttons {
         background: $lt-main-fg-color;
         width: 100%;
         text-align: right;
 
-        span#timepicker-cancel-button,span#timepicker-done-button {
+        .cancel-button,.done-button {
             padding:10px 0;
             vertical-align: middle;
             display: inline-block;
@@ -177,28 +177,24 @@ div#timepicker {
             }
         }
 
-        span#timepicker-cancel-button {
-
-        }
-
-        span#timepicker-done-button {
+        .done-button {
            margin-right: 10px;
         }
     }
 
 }
 
-div#timepicker.timepicker-dark {
+.timepicker.timepicker-dark {
 
     background: $drk-main-bg-color;
     border: 1px solid $drk-border-light-color;
     color: $drk-text-bg-color;
     box-shadow: 0 0 4px $drk-box-shadow-color;
 
-    div#timepicker-time {
+    .time {
         background: $drk-main-fg-color;
         color: $drk-text-fg-color;
-        span#timepicker-hour,span#timepicker-minute {
+        .hour,.minute {
             &.active {
                 color: darken($drk-text-accent-color,5%)
             }
@@ -207,8 +203,8 @@ div#timepicker.timepicker-dark {
             }
         }
 
-        div#am_pm {
-            span#ampm_button {
+        .am_pm {
+            .ampm_button {
                 &:hover {
                     color: $drk-text-accent-color;
                 }
@@ -216,12 +212,12 @@ div#timepicker.timepicker-dark {
         }
     }
 
-    #timepicker-canvas {
+    .canvas {
         background: $drk-main-fg-color;
         border: 1px solid $drk-border-light-color;
         box-shadow: inset 0 0 20px $drk-border-light-color;
 
-        #timepicker-faceH,#timepicker-faceM {
+        .faceH,.faceM {
 
             span {
                 color: $drk-text-bg-color;
@@ -233,7 +229,7 @@ div#timepicker.timepicker-dark {
 
         }
 
-        #arrow {
+        .arrow {
             background: rgba($drk-text-accent-color,.4);
 
             &:after {
@@ -246,10 +242,10 @@ div#timepicker.timepicker-dark {
         }
     }
 
-    #timepicker-buttons {
+    .buttons {
         background: $drk-main-fg-color;
         color: $drk-text-fg-color;
-        span#timepicker-cancel-button,span#timepicker-done-button {
+        .cancel-button,.done-button {
 
             &:hover {
                 color: $drk-text-accent-color;

@@ -8,25 +8,25 @@ See Demo at kachurun.github.io/timepicker
 (function( $ ){
 
     // Template`s
-    var template = [    '<div id="timepicker" style="opacity:0">',
-                            '<div id="timepicker-time">',
-                                '<span id="timepicker-hour"></span>',
+    var template = [    '<div class="timepicker" style="opacity:0">',
+                            '<div id="timepicker-time" class="time">',
+                                '<span id="timepicker-hour" class="hour"></span>',
                                 ':',
-                                '<span id="timepicker-minute"></span>',
+                                '<span id="timepicker-minute" class="minute"></span>',
                             '</div>',
-                            '<div id="timepicker-canvas">',
-                                '<div id="timepicker-faceH"></div>',
-                                '<div id="timepicker-faceM"></div>',
+                            '<div id="timepicker-canvas" class="canvas">',
+                                '<div id="timepicker-faceH" class="faceH"></div>',
+                                '<div id="timepicker-faceM" class="faceM"></div>',
                             '</div>',
                         '</div>'
                    ].join('');
     
-    var btnsTpl = [    '<div id="timepicker-buttons">',
-                                    '<span id="timepicker-cancel-button"></span>',
-                                    '<span id="timepicker-done-button"></span>',
+    var btnsTpl = [    '<div id="timepicker-buttons" class="buttons">',
+                                    '<span id="timepicker-cancel-button" class="cancel-button"></span>',
+                                    '<span id="timepicker-done-button" class="done-button"></span>',
                                     '</div>'                                        ].join('');
-    var amPmTpl = [     '<div id="am_pm">',
-                        '<span id="ampm_button"></span>',
+    var amPmTpl = [     '<div id="am_pm" class="am_pm">',
+                        '<span id="ampm_button" class="ampm_button"></span>',
                         '</div>'                                                    ].join('');
     
     // Global variations
@@ -400,7 +400,7 @@ See Demo at kachurun.github.io/timepicker
         outerR = [ (width/dividerOut - width_num/2), (width/dividerOut + width_num/2) ];
         
         // create arrow and append to obj if not exist
-        this.arrow = this.face_canvas.children().is('#arrow') ? this.face_canvas.find('#arrow') : $('<div id="arrow" style="opacity:0"></div>').appendTo(this.face_canvas);
+        this.arrow = this.face_canvas.children().is('.arrow') ? this.face_canvas.find('.arrow') : $('<div class="arrow" style="opacity:0"></div>').appendTo(this.face_canvas);
         
         // click or move on canvas event
         this.face_canvas.on(mousedownEvent+".canvas_"+this.id,function(e){
